@@ -539,6 +539,16 @@ a:hover { color: var(--gold-light); }
   line-height: 1.75;
 }
 
+.mailing-incentive {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  font-style: italic;
+  margin-bottom: 1rem !important;
+  border-left: 2px solid var(--gold);
+  padding-left: 1rem;
+  text-align: left;
+}
+
 .mailing-form {
   display: flex;
   gap: 0;
