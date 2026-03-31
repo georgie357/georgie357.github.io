@@ -1,0 +1,135 @@
+name: Publish Scheduled Blog Post
+
+on:
+  schedule:
+    # Every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      week_override:
+        description: 'Override week number (1-12). Leave blank to calculate automatically.'
+        required: false
+        default: ''
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Calculate week and publish post
+        run: |
+          python3 << 'PYEOF'
+          import datetime
+          import os
+          import shutil
+          import re
+          import sys
+
+          # --- Determine week number ---
+          week_override = os.environ.get('WEEK_OVERRIDE', '').strip()
+          if week_override:
+              try:
+                  week_num = int(week_override)
+              except ValueError:
+                  print(f"Invalid week override: {week_override}")
+                  sys.exit(1)
+          else:
+              today = datetime.date.today()
+              start = datetime.date(2026, 3, 31)
+              delta = (today - start).days
+              week_num = delta // 7 + 1
+
+          print(f"Calculated week number: {week_num}")
+
+          if week_num < 1 or week_num > 12:
+              print(f"Week {week_num} is outside the scheduled range (1-12). Nothing to publish.")
+              sys.exit(0)
+
+          # --- Post manifest: (scheduled filename, live filename) ---
+          posts = {
+               1: ('week-01-who-was-penthesilea.html',         'blog-who-was-penthesilea.html'),
+               2: ('week-02-real-myth-bellerophon.html',       'blog-real-myth-bellerophon.html'),
+               3: ('week-03-hecuba-troy.html',                 'blog-hecuba-troy.html'),
+               4: ('week-04-achilles-penthesilea.html',        'blog-achilles-penthesilea.html'),
+               5: ('week-05-what-is-iliad-about.html',         'blog-what-is-iliad-about.html'),
+               6: ('week-06-women-trojan-war.html',            'blog-women-trojan-war.html'),
+               7: ('week-07-hercules-guilt.html',              'blog-hercules-guilt.html'),
+               8: ('week-08-mythology-madeline-miller.html',   'blog-mythology-madeline-miller.html'),
+               9: ('week-09-pegasus.html',                     'blog-pegasus.html'),
+              10: ('week-10-why-hecuba-matters.html',          'blog-why-hecuba-matters.html'),
+              11: ('week-11-amazons-greek-mythology.html',     'blog-amazons-greek-mythology.html'),
+              12: ('week-12-where-to-start-greek-mythology.html', 'blog-where-to-start-greek-mythology.html'),
+          }
+
+          src_file, dst_file = posts[week_num]
+          src_path = f'scheduled-posts/{src_file}'
+          dst_path = dst_file
+
+          # --- Check source exists ---
+          if not os.path.exists(src_path):
+              print(f"ERROR: Source file not found: {src_path}")
+              sys.exit(1)
+
+          # --- Copy and fix relative paths ---
+          with open(src_path, 'r', encoding='utf-8') as f:
+              content = f.read()
+
+          # Scheduled posts use ../ relative paths; fix for root deployment
+          content = content.replace('href="../', 'href="')
+          content = content.replace('src="../', 'src="')
+
+          with open(dst_path, 'w', encoding='utf-8') as f:
+              f.write(content)
+
+          print(f"Published: {src_path} -> {dst_path}")
+
+          # --- Update blog.html: flip data-live="false" to data-live="true" ---
+          blog_path = 'blog.html'
+          with open(blog_path, 'r', encoding='utf-8') as f:
+              blog = f.read()
+
+          old_marker = f'data-week="{week_num}" data-live="false"'
+          new_marker = f'data-week="{week_num}" data-live="true"'
+
+          if old_marker in blog:
+              blog = blog.replace(old_marker, new_marker)
+              with open(blog_path, 'w', encoding='utf-8') as f:
+                  f.write(blog)
+              print(f"Updated blog.html: week {week_num} marked live")
+          else:
+              print(f"Note: Marker '{old_marker}' not found in blog.html (may already be live)")
+
+          print("Done.")
+          PYEOF
+        env:
+          WEEK_OVERRIDE: ${{ github.event.inputs.week_override }}
+
+      - name: Commit and push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            # Calculate week for commit message
+            WEEK=$(python3 -c "
+          import datetime, os
+          ov = os.environ.get('WEEK_OVERRIDE', '').strip()
+          if ov:
+              print(ov)
+          else:
+              today = datetime.date.today()
+              start = datetime.date(2026, 3, 31)
+              print((today - start).days // 7 + 1)
+          " 2>/dev/null || echo "?")
+            git commit -m "Publish scheduled blog post — week ${WEEK}"
+            git push
+          fi
+        env:
+          WEEK_OVERRIDE: ${{ github.event.inputs.week_override }}

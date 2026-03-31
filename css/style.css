@@ -1335,6 +1335,181 @@ a:hover { color: var(--gold-light); }
 }
 
 /* ============================================================
+   BLOG — SCHEDULED POST VISIBILITY
+   ============================================================ */
+[data-live="false"] .when-live  { display: none; }
+[data-live="true"]  .when-scheduled { display: none; }
+
+.blog-card-status {
+  font-family: var(--ff-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  border-radius: 2px;
+  padding: 0.15em 0.5em;
+}
+
+[data-live="false"] .blog-card-title span {
+  color: var(--text-secondary);
+}
+
+[data-live="false"] .blog-card-excerpt {
+  opacity: 0.6;
+}
+
+/* ============================================================
+   BLOG — POLL
+   ============================================================ */
+.blog-poll {
+  margin: 4rem 0;
+  padding: 2.5rem 3rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  max-width: 640px;
+}
+
+.blog-poll-title {
+  font-family: var(--ff-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.blog-poll-intro {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.8rem;
+  font-style: italic;
+}
+
+.poll-form { display: flex; flex-direction: column; gap: 0.9rem; }
+
+.poll-option {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 0.7rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+}
+
+.poll-option input[type="radio"] {
+  accent-color: var(--gold);
+  width: 1em; height: 1em;
+  flex-shrink: 0;
+}
+
+.poll-option-text {
+  font-family: var(--ff-body);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.poll-bar {
+  width: 100px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.poll-bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--gold-dark);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.poll-votes {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  min-width: 55px;
+  text-align: right;
+}
+
+.poll-actions { margin-top: 1rem; }
+
+.poll-thank-you {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .blog-poll { padding: 1.8rem 1.5rem; }
+  .poll-option { grid-template-columns: auto 1fr; }
+  .poll-bar, .poll-votes { display: none; }
+}
+
+/* ============================================================
+   BLOG — SUGGESTION FORM
+   ============================================================ */
+.blog-suggest {
+  margin: 0 0 4rem;
+  padding: 2.5rem 3rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  max-width: 640px;
+}
+
+.blog-suggest-title {
+  font-family: var(--ff-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.blog-suggest-intro {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.suggest-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.suggest-form input[type="text"],
+.suggest-form input[type="email"] {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-family: var(--ff-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--transition);
+  box-sizing: border-box;
+}
+
+.suggest-form input:focus {
+  border-color: var(--gold-dark);
+}
+
+.suggest-success {
+  font-size: 0.9rem;
+  color: var(--gold);
+  font-style: italic;
+  margin-top: 0.8rem;
+}
+
+@media (max-width: 600px) {
+  .blog-suggest { padding: 1.8rem 1.5rem; }
+  .suggest-row { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
    PAGE TRANSITIONS & UTILITIES
    ============================================================ */
 .visually-hidden {
