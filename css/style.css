@@ -1139,6 +1139,202 @@ a:hover { color: var(--gold-light); }
 }
 
 /* ============================================================
+   BLOG PAGE
+   ============================================================ */
+.blog-grid {
+  padding: 5rem 0;
+}
+
+.blog-card {
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.blog-card:last-child { border-bottom: none; }
+
+.blog-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.blog-card-date {
+  font-family: var(--ff-small-caps);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.blog-card-category {
+  font-family: var(--ff-small-caps);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+
+.blog-card-title {
+  font-family: var(--ff-display);
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+}
+
+.blog-card-title a { color: inherit; transition: color var(--transition); }
+.blog-card-title a:hover { color: var(--gold); }
+
+.blog-card-excerpt {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  max-width: 720px;
+  margin-bottom: 1.2rem;
+}
+
+.blog-card-readmore {
+  font-family: var(--ff-small-caps);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: color var(--transition);
+}
+.blog-card-readmore:hover { color: var(--gold-light); }
+
+/* ============================================================
+   BLOG POST
+   ============================================================ */
+.post-header {
+  padding: 10rem 0 4rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.post-date {
+  font-family: var(--ff-small-caps);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.post-category {
+  font-family: var(--ff-small-caps);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+
+.post-title {
+  font-family: var(--ff-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text-primary);
+  max-width: 720px;
+  margin: 0 auto 1rem;
+}
+
+.post-subtitle {
+  font-family: var(--ff-display);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--gold);
+}
+
+.post-body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 5rem 0;
+}
+
+.post-body p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.95;
+  margin-bottom: 1.8rem;
+}
+
+.post-body h2 {
+  font-family: var(--ff-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-top: 3rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-body blockquote {
+  font-family: var(--ff-display);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--text-primary);
+  padding: 1.5rem 2rem;
+  border-left: 2px solid var(--gold);
+  background: var(--gold-faint);
+  margin: 2.5rem 0;
+  line-height: 1.7;
+}
+
+.post-body em { font-style: italic; color: var(--text-primary); }
+
+.post-cta {
+  margin-top: 4rem;
+  padding: 2.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--gold);
+}
+
+.post-cta h3 {
+  font-family: var(--ff-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+}
+
+.post-cta p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.post-back {
+  font-family: var(--ff-small-caps);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-block;
+  margin-bottom: 2rem;
+  transition: color var(--transition);
+}
+.post-back:hover { color: var(--gold-light); }
+
+@media (max-width: 640px) {
+  .post-body { padding: 3rem 0; }
+  .post-header { padding: 8rem 0 3rem; }
+}
+
+/* ============================================================
    PAGE TRANSITIONS & UTILITIES
    ============================================================ */
 .visually-hidden {
