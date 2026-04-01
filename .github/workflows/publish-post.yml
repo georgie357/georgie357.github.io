@@ -22,12 +22,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Calculate week and publish post
+        id: publish
         run: |
           python3 << 'PYEOF'
           import datetime
           import os
-          import shutil
-          import re
           import sys
 
           # --- Determine week number ---
@@ -104,6 +103,8 @@ jobs:
           else:
               print(f"Note: Marker '{old_marker}' not found in blog.html (may already be live)")
 
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as gh_out:
+              print(f"week_num={week_num}", file=gh_out)
           print("Done.")
           PYEOF
         env:
@@ -117,19 +118,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            # Calculate week for commit message
-            WEEK=$(python3 -c "
-          import datetime, os
-          ov = os.environ.get('WEEK_OVERRIDE', '').strip()
-          if ov:
-              print(ov)
-          else:
-              today = datetime.date.today()
-              start = datetime.date(2026, 3, 31)
-              print((today - start).days // 7 + 1)
-          " 2>/dev/null || echo "?")
-            git commit -m "Publish scheduled blog post — week ${WEEK}"
+            git commit -m "Publish scheduled blog post — week ${{ steps.publish.outputs.week_num }}"
             git push
           fi
-        env:
-          WEEK_OVERRIDE: ${{ github.event.inputs.week_override }}

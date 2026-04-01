@@ -440,6 +440,8 @@
   var form = document.getElementById('suggest-form');
   if (!form) return;
   form.addEventListener('submit', function() {
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
     setTimeout(function() {
       var el = document.getElementById('suggest-success');
       if (el) el.style.display = '';

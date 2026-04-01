@@ -1350,6 +1350,8 @@ a:hover { color: var(--gold-light); }
   border-radius: 2px;
   padding: 0.15em 0.5em;
 }
+.blog-card[data-live="true"]  .blog-card-status { display: none; }
+.blog-card[data-live="false"] .blog-card-status { display: inline-block; }
 
 [data-live="false"] .blog-card-title span {
   color: var(--text-secondary);
