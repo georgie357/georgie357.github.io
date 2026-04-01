@@ -121,3 +121,147 @@ jobs:
             git commit -m "Publish scheduled blog post — week ${{ steps.publish.outputs.week_num }}"
             git push
           fi
+
+      - name: Send MailerLite campaign
+        if: steps.publish.outputs.week_num != ''
+        run: |
+          python3 << 'PYEOF'
+          import os
+          import sys
+          import json
+          import urllib.request
+          import urllib.error
+
+          API_KEY  = os.environ['MAILERLITE_API_KEY']
+          BASE_URL = 'https://connect.mailerlite.com/api'
+          WEEK_NUM = int(os.environ['WEEK_NUM'])
+
+          HEADERS = {
+              'Authorization': f'Bearer {API_KEY}',
+              'Content-Type':  'application/json',
+              'Accept':        'application/json',
+          }
+
+          # --- Post metadata keyed by week number ---
+          POST_DATA = {
+               1: ('Who Was Penthesilea? The Amazon Queen History Almost Forgot',
+                   'The Penthesilea myth &#8212; who was the Amazon Queen who fought at Troy, why she came, and what Achilles felt when he saw her face. From the author of The Amazon\'s End.',
+                   'blog-who-was-penthesilea.html'),
+               2: ('The Real Myth of Bellerophon: Why He Fell From Heaven',
+                   'Bellerophon Greek mythology &#8212; the man who tamed Pegasus and fell from Olympus. What the simplified version of the myth leaves out, and why it matters.',
+                   'blog-real-myth-bellerophon.html'),
+               3: ('Hecuba of Troy: The Queen Behind the War',
+                   'Hecuba Troy &#8212; who was the Queen of Troy, what the myth remembers about her vengeance, and why Euripides wrote two plays about her. From the author of The Hound of Troy.',
+                   'blog-hecuba-troy.html'),
+               4: ('Achilles and Penthesilea: The Love Story History Ignored',
+                   'Achilles and Penthesilea &#8212; the myth of what happened when the greatest Greek warrior faced the Amazon queen at Troy, and what he felt when he saw her face.',
+                   'blog-achilles-penthesilea.html'),
+               5: ('What Is the Iliad Actually About?',
+                   "The Iliad is not a story about the Trojan War. It covers twenty-three days in year nine. What Homer's poem is actually about &#8212; and why Achilles' rage is more interesting than the siege.",
+                   'blog-what-is-iliad-about.html'),
+               6: ('The Women the Trojan War Forgot',
+                   'Briseis, Chryseis, Cassandra, Andromache &#8212; the women of the Trojan War whose stories the ancient poets treated as secondary to the men around them.',
+                   'blog-women-trojan-war.html'),
+               7: ('Hercules and Guilt: What the Myths Never Say Directly',
+                   "The twelve labours of Hercules are well known. What they were for &#8212; penance for killing his own family under Hera's madness &#8212; and what that cost him is the story the myth rarely tells directly.",
+                   'blog-hercules-guilt.html'),
+               8: ('Greek Mythology Books for Fans of Madeline Miller',
+                   'If you loved The Song of Achilles or Circe by Madeline Miller, here are the Greek mythology retellings that offer the same literary seriousness with different perspectives and voices.',
+                   'blog-mythology-madeline-miller.html'),
+               9: ('Pegasus: The Horse That Was Never Just a Horse',
+                   "Pegasus was born from Medusa's blood, flew Bellerophon to his greatest victories, and ended up carrying Zeus's thunderbolts. The horse's trajectory through the myth is more interesting than it looks.",
+                   'blog-pegasus.html'),
+              10: ('Why Hecuba Matters: Grief, Power, and Vengeance in Troy',
+                   'Hecuba Queen of Troy &#8212; why she is one of the most compelling figures in Greek mythology, what Euripides understood about her, and what makes her story impossible to look away from.',
+                   'blog-why-hecuba-matters.html'),
+              11: ('The Amazons: What Greek Mythology Got Wrong',
+                   'The Amazons in Greek mythology &#8212; who they were, why Greek heroes kept fighting them, what the archaeological evidence suggests, and what the myths chose not to remember.',
+                   'blog-amazons-greek-mythology.html'),
+              12: ('Where to Start With Greek Mythology Retellings',
+                   'The best Greek mythology retellings &#8212; a guide to starting points depending on what you are actually looking for. From accessible introductions to literary deep-dives.',
+                   'blog-where-to-start-greek-mythology.html'),
+          }
+
+          title, teaser, slug = POST_DATA[WEEK_NUM]
+          post_url = f'https://georgealexandervela.com/{slug}'
+
+          # --- Helper: make API request ---
+          def api(method, path, body=None):
+              url = f'{BASE_URL}{path}'
+              data = json.dumps(body).encode('utf-8') if body else None
+              req  = urllib.request.Request(url, data=data, headers=HEADERS, method=method)
+              try:
+                  with urllib.request.urlopen(req) as resp:
+                      return json.loads(resp.read().decode('utf-8'))
+              except urllib.error.HTTPError as e:
+                  err = e.read().decode('utf-8')
+                  print(f"HTTP {e.code} {method} {path}: {err[:300]}")
+                  raise
+
+          # --- 1. Get subscriber groups ---
+          print("Fetching subscriber groups...")
+          groups_resp = api('GET', '/groups?limit=25')
+          groups = groups_resp.get('data', [])
+
+          if not groups:
+              print("WARNING: No subscriber groups found. Campaign not sent.")
+              sys.exit(0)
+
+          group_ids = [str(g['id']) for g in groups]
+          print(f"Found {len(group_ids)} group(s): {', '.join(g['name'] for g in groups)}")
+
+          # --- 2. Build email HTML ---
+          html_body = f"""<!DOCTYPE html>
+          <html>
+          <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+          <body style="margin:0;padding:0;background:#f4f1eb;font-family:Georgia,'Times New Roman',serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f1eb;">
+          <tr><td align="center" style="padding:40px 16px;">
+          <table width="540" cellpadding="0" cellspacing="0" border="0" style="max-width:540px;width:100%;background:#ffffff;">
+          <tr><td style="background:#080604;padding:22px 32px;text-align:center;">
+          <span style="color:#c9a84c;font-size:11px;letter-spacing:4px;text-transform:uppercase;font-family:Arial,sans-serif;">George Alexander Vela</span>
+          </td></tr>
+          <tr><td style="padding:36px 32px 28px;">
+          <p style="margin:0 0 14px 0;color:#999999;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-family:Arial,sans-serif;">New from the Mythology Notes</p>
+          <h1 style="margin:0 0 20px 0;color:#1a1510;font-size:22px;font-weight:normal;line-height:1.4;font-family:Georgia,serif;">{title}</h1>
+          <p style="margin:0 0 28px 0;color:#555555;font-size:15px;line-height:1.8;font-family:Georgia,serif;">{teaser}</p>
+          <table cellpadding="0" cellspacing="0" border="0">
+          <tr><td style="background:#080604;">
+          <a href="{post_url}" style="display:inline-block;padding:13px 26px;color:#c9a84c;text-decoration:none;font-size:13px;letter-spacing:1px;font-family:Arial,sans-serif;">Read it here &#x2192;</a>
+          </td></tr>
+          </table>
+          </td></tr>
+          <tr><td style="padding:16px 32px 24px;border-top:1px solid #eeeeee;">
+          <p style="margin:0;color:#bbbbbb;font-size:11px;line-height:1.6;font-family:Arial,sans-serif;">You are receiving this because you subscribed at <a href="https://georgealexandervela.com" style="color:#bbbbbb;">georgealexandervela.com</a>. {{$unsubscribe}}</p>
+          </td></tr>
+          </table>
+          </td></tr>
+          </table>
+          </body>
+          </html>"""
+
+          # --- 3. Create campaign ---
+          print(f"Creating campaign for week {WEEK_NUM}: {title}")
+          campaign_body = {
+              'name':   f'Mythology Notes — Week {WEEK_NUM}: {title[:60]}',
+              'type':   'regular',
+              'emails': [{
+                  'subject':   f'New from the Mythology Notes \u2014 {title}',
+                  'from_name': 'George Alexander Vela',
+                  'from':      'labors.heracles@gmail.com',
+                  'content':   html_body,
+              }],
+              'groups': group_ids,
+          }
+          campaign = api('POST', '/campaigns', campaign_body)
+          campaign_id = campaign['data']['id']
+          print(f"Campaign created: id={campaign_id}")
+
+          # --- 4. Schedule for immediate delivery ---
+          print("Scheduling campaign for immediate delivery...")
+          api('POST', f'/campaigns/{campaign_id}/schedule', {'delivery': 'instant'})
+          print(f"Campaign sent. Post: {post_url}")
+          PYEOF
+        env:
+          MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
+          WEEK_NUM: ${{ steps.publish.outputs.week_num }}
