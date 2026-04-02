@@ -122,6 +122,121 @@ jobs:
             git push
           fi
 
+      - name: Queue Pinterest pin via Buffer
+        if: steps.publish.outputs.week_num != ''
+        run: |
+          python3 << 'PYEOF'
+          import os
+          import sys
+          import json
+          import urllib.request
+          import urllib.error
+          import re
+
+          BUFFER_TOKEN   = os.environ['BUFFER_API_TOKEN']
+          WEEK_NUM       = int(os.environ['WEEK_NUM'])
+          CHANNEL_ID     = '69cdf3b3af47dacb697d92ac'   # Buffer Pinterest channel
+          BOARD_ID       = '1104789421030396336'          # Pinterest: Myths of the Ancient World
+
+          API_URL = 'https://api.buffer.com/graphql'
+          HEADERS = {
+              'Authorization': f'Bearer {BUFFER_TOKEN}',
+              'Content-Type':  'application/json',
+          }
+
+          # Post metadata keyed by week number
+          POST_DATA = {
+               1: ('Who Was Penthesilea? The Amazon Queen History Almost Forgot',
+                   'The Penthesilea myth — who was the Amazon Queen who fought at Troy, why she came, and what Achilles felt when he saw her face.',
+                   'blog-who-was-penthesilea.html'),
+               2: ('The Real Myth of Bellerophon: Why He Fell From Heaven',
+                   'Bellerophon Greek mythology — the man who tamed Pegasus and fell from Olympus. What the simplified version of the myth leaves out, and why it matters.',
+                   'blog-real-myth-bellerophon.html'),
+               3: ('Hecuba of Troy: The Queen Behind the War',
+                   'Hecuba Troy — who was the Queen of Troy, what the myth remembers about her vengeance, and why Euripides wrote two plays about her.',
+                   'blog-hecuba-troy.html'),
+               4: ('Achilles and Penthesilea: The Love Story History Ignored',
+                   'Achilles and Penthesilea — the myth of what happened when the greatest Greek warrior faced the Amazon queen at Troy, and what he felt when he saw her face.',
+                   'blog-achilles-penthesilea.html'),
+               5: ('What Is the Iliad Actually About?',
+                   'The Iliad is not a story about the Trojan War. It covers twenty-three days in year nine. What Homer\'s poem is actually about — and why Achilles\' rage is more interesting than the siege.',
+                   'blog-what-is-iliad-about.html'),
+               6: ('The Women the Trojan War Forgot',
+                   'Briseis, Chryseis, Cassandra, Andromache — the women of the Trojan War whose stories the ancient poets treated as secondary to the men around them.',
+                   'blog-women-trojan-war.html'),
+               7: ('Hercules and Guilt: What the Myths Never Say Directly',
+                   'The twelve labours of Hercules are well known. What they were for — penance for killing his own family under Hera\'s madness — and what that cost him.',
+                   'blog-hercules-guilt.html'),
+               8: ('Greek Mythology Books for Fans of Madeline Miller',
+                   'If you loved The Song of Achilles or Circe by Madeline Miller, here are the Greek mythology retellings that offer the same literary seriousness with different perspectives.',
+                   'blog-mythology-madeline-miller.html'),
+               9: ('Pegasus: The Horse That Was Never Just a Horse',
+                   'Pegasus was born from Medusa\'s blood, flew Bellerophon to his greatest victories, and ended up carrying Zeus\'s thunderbolts. The horse\'s trajectory through the myth is more interesting than it looks.',
+                   'blog-pegasus.html'),
+              10: ('Why Hecuba Matters: Grief, Power, and Vengeance in Troy',
+                   'Hecuba Queen of Troy — why she is one of the most compelling figures in Greek mythology, what Euripides understood about her, and what makes her story impossible to look away from.',
+                   'blog-why-hecuba-matters.html'),
+              11: ('The Amazons: What Greek Mythology Got Wrong',
+                   'The Amazons in Greek mythology — who they were, why Greek heroes kept fighting them, what the archaeological evidence suggests, and what the myths chose not to remember.',
+                   'blog-amazons-greek-mythology.html'),
+              12: ('Where to Start With Greek Mythology Retellings',
+                   'The best Greek mythology retellings — a guide to starting points depending on what you are actually looking for. From accessible introductions to literary deep-dives.',
+                   'blog-where-to-start-greek-mythology.html'),
+          }
+
+          title, blurb, slug = POST_DATA[WEEK_NUM]
+          post_url  = f'https://georgealexandervela.com/{slug}'
+          # Trim blurb to 150 chars, append hashtags
+          description = blurb[:150].rstrip() + ' #GreekMythology #HistoricalFiction'
+
+          mutation = """
+          mutation CreatePin($input: CreatePostInput!) {
+            createPost(input: $input) {
+              post { id }
+            }
+          }
+          """
+
+          variables = {
+              'input': {
+                  'channelId':      CHANNEL_ID,
+                  'schedulingType': 'automatic',
+                  'mode':           'addToQueue',
+                  'text':           description,
+                  'metadata': {
+                      'pinterest': {
+                          'title':          title,
+                          'url':            post_url,
+                          'boardServiceId': BOARD_ID,
+                      }
+                  },
+              }
+          }
+
+          payload = json.dumps({'query': mutation, 'variables': variables}).encode('utf-8')
+          req = urllib.request.Request(API_URL, data=payload, headers=HEADERS, method='POST')
+          try:
+              with urllib.request.urlopen(req) as resp:
+                  result = json.loads(resp.read().decode('utf-8'))
+          except urllib.error.HTTPError as e:
+              err = e.read().decode('utf-8')
+              print(f'Buffer API error {e.code}: {err[:400]}')
+              sys.exit(1)
+
+          if 'errors' in result:
+              print(f'Buffer GraphQL errors: {result["errors"]}')
+              sys.exit(1)
+
+          pin_id = result['data']['createPost']['post']['id']
+          print(f'Pinterest pin queued via Buffer: id={pin_id}')
+          print(f'  Board : Myths of the Ancient World')
+          print(f'  Title : {title}')
+          print(f'  Link  : {post_url}')
+          PYEOF
+        env:
+          BUFFER_API_TOKEN: ${{ secrets.BUFFER_API_TOKEN }}
+          WEEK_NUM: ${{ steps.publish.outputs.week_num }}
+
       - name: Send MailerLite campaign
         if: steps.publish.outputs.week_num != ''
         run: |
