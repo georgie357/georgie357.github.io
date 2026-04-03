@@ -124,6 +124,7 @@ jobs:
 
       - name: Queue Pinterest pin via Buffer
         if: steps.publish.outputs.week_num != ''
+        continue-on-error: true
         run: |
           python3 << 'PYEOF'
           import os
@@ -239,6 +240,7 @@ jobs:
 
       - name: Queue Instagram post via Buffer
         if: steps.publish.outputs.week_num != ''
+        continue-on-error: true
         run: |
           python3 << 'PYEOF'
           import os
