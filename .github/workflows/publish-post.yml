@@ -139,7 +139,7 @@ jobs:
           CHANNEL_ID     = '69cdf3b3af47dacb697d92ac'   # Buffer Pinterest channel
           BOARD_ID       = '1104789421030396336'          # Pinterest: Myths of the Ancient World
 
-          API_URL = 'https://api.buffer.com/graphql'
+          API_URL = 'https://graph.buffer.com/graphql'
           HEADERS = {
               'Authorization': f'Bearer {BUFFER_TOKEN}',
               'Content-Type':  'application/json',
@@ -253,7 +253,7 @@ jobs:
           WEEK_NUM       = int(os.environ['WEEK_NUM'])
           CHANNEL_ID     = os.environ['BUFFER_INSTAGRAM_ID']
 
-          API_URL = 'https://api.buffer.com/graphql'
+          API_URL = 'https://graph.buffer.com/graphql'
           HEADERS = {
               'Authorization': f'Bearer {BUFFER_TOKEN}',
               'Content-Type':  'application/json',
@@ -369,7 +369,7 @@ jobs:
           WEEK_NUM: ${{ steps.publish.outputs.week_num }}
 
       - name: Send MailerLite campaign
-        if: steps.publish.outputs.week_num != ''
+        if: false  # TEMP: skip during test run
         run: |
           python3 << 'PYEOF'
           import os
