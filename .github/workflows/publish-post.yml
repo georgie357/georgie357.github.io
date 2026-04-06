@@ -103,6 +103,36 @@ jobs:
           else:
               print(f"Note: Marker '{old_marker}' not found in blog.html (may already be live)")
 
+          # --- Update sitemap.xml: add new URL only after post is live ---
+          sitemap_path = 'sitemap.xml'
+          new_url = f'https://georgealexandervela.com/{dst_file}'
+          pub_date = datetime.date.today().strftime('%Y-%m-%d')
+
+          with open(sitemap_path, 'r', encoding='utf-8') as f:
+              sitemap_content = f.read()
+
+          if new_url not in sitemap_content:
+              entry = (
+                  '  <url>
+'
+                  f'    <loc>{new_url}</loc>
+'
+                  f'    <lastmod>{pub_date}</lastmod>
+'
+                  '    <changefreq>yearly</changefreq>
+'
+                  '    <priority>0.7</priority>
+'
+                  '  </url>
+'
+              )
+              sitemap_content = sitemap_content.replace('</urlset>', entry + '</urlset>')
+              with open(sitemap_path, 'w', encoding='utf-8') as f:
+                  f.write(sitemap_content)
+              print(f"sitemap.xml: added {new_url} (lastmod {pub_date})")
+          else:
+              print(f"sitemap.xml: {new_url} already present, skipping")
+
           with open(os.environ['GITHUB_OUTPUT'], 'a') as gh_out:
               print(f"week_num={week_num}", file=gh_out)
           print("Done.")
