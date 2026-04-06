@@ -115,18 +115,12 @@ jobs:
 
           if new_url not in sitemap_content:
               entry = (
-                  '  <url>
-'
-                  f'    <loc>{new_url}</loc>
-'
-                  f'    <lastmod>{pub_date}</lastmod>
-'
-                  '    <changefreq>yearly</changefreq>
-'
-                  '    <priority>0.7</priority>
-'
-                  '  </url>
-'
+                  '  <url>\n'
+                  f'    <loc>{new_url}</loc>\n'
+                  f'    <lastmod>{pub_date}</lastmod>\n'
+                  '    <changefreq>yearly</changefreq>\n'
+                  '    <priority>0.7</priority>\n'
+                  '  </url>\n'
               )
               sitemap_content = sitemap_content.replace('</urlset>', entry + '</urlset>')
               with open(sitemap_path, 'w', encoding='utf-8') as f:
