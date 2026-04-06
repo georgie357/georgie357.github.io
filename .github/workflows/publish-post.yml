@@ -107,21 +107,53 @@ jobs:
 
           print(f"Published: {src_path} -> {dst_path}")
 
-          # --- Update blog.html: flip data-live="false" to data-live="true" ---
+          # --- Update blog.html: insert new article at top of grid ---
           blog_path = 'blog.html'
           with open(blog_path, 'r', encoding='utf-8') as f:
               blog = f.read()
 
-          old_marker = f'data-week="{week_num}" data-live="false"'
-          new_marker = f'data-week="{week_num}" data-live="true"'
+          categories = {1:'Greek Mythology',2:'Greek Mythology',3:'Greek Mythology',4:'Greek Mythology',5:'Greek Mythology',6:'Greek Mythology',7:'Greek Mythology',8:'Reading Guide',9:'Greek Mythology',10:'Greek Mythology',11:'Greek Mythology',12:'Reading Guide'}
+          excerpts = {
+              2: "Bellerophon tamed Pegasus, killed the Chimera, and survived three attempts to kill him. The myth everyone remembers is the fall. The story worth reading is everything that came before it.",
+              3: "Hecuba was the most competent person in any room she entered. The myth of the Trojan War is full of gods and heroes; she ran the city that made the war possible for ten years.",
+              4: "He killed her in single combat. Then he removed her helmet and saw her face. What the ancient sources say happened next is one of Greek mythology&#8217;s stranger and more honest footnotes.",
+              5: "The Iliad covers twenty-three days in year nine of a ten-year war. It is not, technically, a story about the Trojan War. Understanding what it is actually about changes how you read it.",
+              6: "The names everyone knows are Achilles, Hector, Odysseus. The women who appear in the margins of the Trojan War have stories the ancient poets found less interesting to record in full.",
+              7: "The twelve labours are well known. What they were for &#8212; penance for killing his own family under a god-sent madness &#8212; and what that cost him is the story the myth rarely tells directly.",
+              8: "If you finished <em>The Song of Achilles</em> or <em>Circe</em> and found yourself wanting more &#8212; Greek mythology told with literary seriousness &#8212; here is where to go next.",
+              9: "Pegasus was born from Medusa&#8217;s blood, flew Bellerophon to his greatest victories, and ended up carrying the thunderbolts of Zeus. The horse&#8217;s trajectory through the myth is more interesting than it first appears.",
+              10: "Euripides wrote two plays about Hecuba. Neither of them quite explains what makes her story impossible to look away from &#8212; which is that she lost everything and still found a way to act.",
+              11: "The Amazons appear in every major Greek hero&#8217;s story as opponents to be defeated. What the myths record at the margins &#8212; and what the archaeology suggests &#8212; is considerably more complicated.",
+              12: "There are more Greek mythology retellings being published now than at any point since the Renaissance. The question of where to start depends on what you are actually looking for.",
+          }
 
-          if old_marker in blog:
-              blog = blog.replace(old_marker, new_marker)
+          insertion_anchor = '    <!-- POST-WEEK-01 -->'
+          if f'data-week="{week_num}"' in blog:
+              print(f"Note: week {week_num} already in blog.html — skipping insert")
+          elif insertion_anchor not in blog:
+              print(f"ERROR: insertion anchor not found in blog.html")
+              sys.exit(1)
+          else:
+              wk = f"{week_num:02d}"
+              cat = categories.get(week_num, 'Greek Mythology')
+              exc = excerpts.get(week_num, '')
+              a  = f'    <!-- POST-WEEK-{wk} -->\n'
+              a += f'    <article class="blog-card" data-week="{week_num}" data-live="true">\n'
+              a += f'      <div class="blog-card-meta">\n'
+              a += f'        <span class="blog-card-date">{pub_date}</span>\n'
+              a += f'        <span class="blog-card-category">{cat}</span>\n'
+              a += f'      </div>\n'
+              a += f'      <h2 class="blog-card-title">\n'
+              a += f'        <a href="{dst_file}">{title}</a>\n'
+              a += f'      </h2>\n'
+              a += f'      <p class="blog-card-excerpt">{exc}</p>\n'
+              a += f'      <a class="blog-card-readmore" href="{dst_file}">Read &#x2192;</a>\n'
+              a += f'    </article>\n'
+              a += f'    <!-- /POST-WEEK-{wk} -->\n\n'
+              blog = blog.replace(insertion_anchor, a + insertion_anchor, 1)
               with open(blog_path, 'w', encoding='utf-8') as f:
                   f.write(blog)
-              print(f"Updated blog.html: week {week_num} marked live")
-          else:
-              print(f"Note: Marker '{old_marker}' not found in blog.html (may already be live)")
+              print(f"Updated blog.html: inserted week {week_num} article")
 
           # --- Update sitemap.xml: add new URL entry ---
           sitemap_path = 'sitemap.xml'
