@@ -128,13 +128,9 @@ jobs:
           with open(sitemap_path, 'r', encoding='utf-8') as f:
               sitemap = f.read()
 
-          new_url_entry = f"""  <url>
-    <loc>https://georgealexandervela.com/{dst_file}</loc>
-    <lastmod>{datetime.date.today().isoformat()}</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-"""
+          _loc = f"https://georgealexandervela.com/{dst_file}"
+          _mod = datetime.date.today().isoformat()
+          new_url_entry = f"  <url>\n    <loc>{_loc}</loc>\n    <lastmod>{_mod}</lastmod>\n    <changefreq>yearly</changefreq>\n    <priority>0.7</priority>\n  </url>\n"
           # Insert before the about.html entry (or before closing tag)
           if f'/{dst_file}' not in sitemap:
               sitemap = sitemap.replace(
