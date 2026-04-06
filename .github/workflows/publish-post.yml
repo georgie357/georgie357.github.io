@@ -2,10 +2,10 @@ name: Publish Scheduled Blog Post
 
 on:
   schedule:
-    # Every Monday at 9:00 AM UTC
-    - cron: '0 9 * * 1'
-  push:
-    branches: [main]
+    # Every Thursday at 9:00 AM UTC
+    # (Week 1 was posted Monday 2026-04-06 as a one-off launch.
+    #  Switched to Thursday from Week 2 onward for better engagement.)
+    - cron: '0 9 * * 4'
   workflow_dispatch:
     inputs:
       week_override:
@@ -41,9 +41,12 @@ jobs:
                   sys.exit(1)
           else:
               today = datetime.date.today()
-              start = datetime.date(2026, 3, 31)
-              delta = (today - start).days
-              week_num = delta // 7 + 1
+              thursday_start = datetime.date(2026, 4, 16)  # first Thursday
+              if today < thursday_start:
+                  week_num = 1
+              else:
+                  delta = (today - thursday_start).days
+                  week_num = delta // 7 + 2
 
           print(f"Calculated week number: {week_num}")
 
@@ -104,30 +107,6 @@ jobs:
               print(f"Updated blog.html: week {week_num} marked live")
           else:
               print(f"Note: Marker '{old_marker}' not found in blog.html (may already be live)")
-
-          # --- Update sitemap.xml: add new URL only after post is live ---
-          sitemap_path = 'sitemap.xml'
-          new_url = f'https://georgealexandervela.com/{dst_file}'
-          pub_date = datetime.date.today().strftime('%Y-%m-%d')
-
-          with open(sitemap_path, 'r', encoding='utf-8') as f:
-              sitemap_content = f.read()
-
-          if new_url not in sitemap_content:
-              entry = (
-                  '  <url>\n'
-                  f'    <loc>{new_url}</loc>\n'
-                  f'    <lastmod>{pub_date}</lastmod>\n'
-                  '    <changefreq>yearly</changefreq>\n'
-                  '    <priority>0.7</priority>\n'
-                  '  </url>\n'
-              )
-              sitemap_content = sitemap_content.replace('</urlset>', entry + '</urlset>')
-              with open(sitemap_path, 'w', encoding='utf-8') as f:
-                  f.write(sitemap_content)
-              print(f"sitemap.xml: added {new_url} (lastmod {pub_date})")
-          else:
-              print(f"sitemap.xml: {new_url} already present, skipping")
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as gh_out:
               print(f"week_num={week_num}", file=gh_out)
