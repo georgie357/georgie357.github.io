@@ -1,7 +1,7 @@
 name: cleanup-video-week-03
 on:
   schedule:
-    - cron: '30 1 9 4 *'
+    - cron: '42 1 9 4 *'
   workflow_dispatch:
 jobs:
   cleanup:
