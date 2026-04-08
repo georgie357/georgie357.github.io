@@ -1,0 +1,33 @@
+name: cleanup-video-week-03
+on:
+  schedule:
+    - cron: '30 1 9 4 *'
+  workflow_dispatch:
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Delete video file
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -s -X DELETE \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Content-Type: application/json" \
+            "https://api.github.com/repos/georgie357/georgie357.github.io/contents/videos/week-03.mp4" \
+            -d '{"message":"cleanup: delete week-03 video after 24h","sha":"efbe2c2da641e740cdd9190e649a38227fe32b70"}'
+      - name: Delete this workflow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          WSHA=$(curl -s \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/georgie357/georgie357.github.io/contents/.github/workflows/cleanup-video-week-03.yml" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['sha'])")
+          curl -s -X DELETE \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Content-Type: application/json" \
+            "https://api.github.com/repos/georgie357/georgie357.github.io/contents/.github/workflows/cleanup-video-week-03.yml" \
+            -d "{\"message\":\"cleanup: remove cleanup-video-week-03 after execution\",\"sha\":\"$WSHA\"}"
