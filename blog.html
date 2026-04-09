@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://assets.mailerlite.com https://ml-prod.s3.amazonaws.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; frame-src https://giscus.app; connect-src 'self' https://formspree.io https://assets.mailerlite.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog — From the Mythology Notes | George Alexander Vela</title>
   <meta name="description" content="Essays on Greek mythology — the myths the poets remembered, the ones they chose to forget, and the gaps in between. From the author of the Myths of the Ancient World series.">
@@ -162,6 +163,8 @@
     <p class="blog-suggest-intro">If there is a myth, a figure, or a question you would like me to write about, send it here. I read every suggestion.</p>
     <form class="suggest-form" id="suggest-form" action="https://formspree.io/f/xkopjwow" method="POST" aria-label="Topic suggestion form">
       <input type="hidden" name="subject" value="Blog topic suggestion">
+      <!-- Honeypot spam protection -->
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
       <div class="suggest-row">
         <input type="text" name="suggestion" placeholder="Your topic suggestion&#x2026;" required aria-label="Topic suggestion">
         <input type="email" name="email" placeholder="Email (optional)" aria-label="Your email address" autocomplete="email">
