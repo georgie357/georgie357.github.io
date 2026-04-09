@@ -1147,12 +1147,15 @@ a:hover { color: var(--gold-light); }
 .footer-social-link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 36px;
+  gap: 6px;
+  padding: 0 10px;
   height: 36px;
   border: 1px solid var(--border-light);
   border-radius: 4px;
   color: var(--text-muted);
+  font-family: var(--ff-small-caps);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
   transition: color var(--transition), border-color var(--transition), background var(--transition);
 }
 
