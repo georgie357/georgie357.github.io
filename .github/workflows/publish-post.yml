@@ -2,8 +2,8 @@ name: Publish Scheduled Blog Post
 
 on:
   schedule:
-    # Every Thursday at 9:00 AM UTC
-    - cron: '0 9 * * 4'
+    # Every Monday at 9:00 AM UTC (2 AM Pacific)
+    - cron: '0 9 * * 1'
   workflow_dispatch:
     inputs:
       week_override:
@@ -40,25 +40,25 @@ jobs:
           else:
               today = datetime.date.today()
 
-              # Map each Thursday publish date to its week number.
+              # Map each Monday publish date to its week number.
               # Week 1 was published manually on 2026-04-06 (Monday launch).
-              # Weeks 2-12 publish on specific Thursdays.
+              # Weeks 2-12 publish on Mondays at 9 AM UTC.
               publish_schedule = {
-                  datetime.date(2026, 4, 16): 2,   # Thu Apr 16  — Bellerophon
-                  datetime.date(2026, 4, 23): 3,   # Thu Apr 23  — Hecuba of Troy
-                  datetime.date(2026, 4, 30): 4,   # Thu Apr 30  — Achilles & Penthesilea
-                  datetime.date(2026, 5,  7): 5,   # Thu May 7   — What Is the Iliad About
-                  datetime.date(2026, 5, 14): 6,   # Thu May 14  — Women the Trojan War Forgot
-                  datetime.date(2026, 5, 21): 7,   # Thu May 21  — Hercules and Guilt
-                  datetime.date(2026, 5, 28): 8,   # Thu May 28  — Madeline Miller reading guide
-                  datetime.date(2026, 6,  4): 9,   # Thu Jun 4   — Pegasus
-                  datetime.date(2026, 6, 11): 10,  # Thu Jun 11  — Why Hecuba Matters
-                  datetime.date(2026, 6, 18): 11,  # Thu Jun 18  — Amazons
-                  datetime.date(2026, 6, 25): 12,  # Thu Jun 25  — Where to Start
+                  datetime.date(2026, 4, 13): 2,   # Mon Apr 13  — Bellerophon
+                  datetime.date(2026, 4, 20): 3,   # Mon Apr 20  — Hecuba of Troy
+                  datetime.date(2026, 4, 27): 4,   # Mon Apr 27  — Achilles & Penthesilea
+                  datetime.date(2026, 5,  4): 5,   # Mon May 4   — What Is the Iliad About
+                  datetime.date(2026, 5, 11): 6,   # Mon May 11  — Women the Trojan War Forgot
+                  datetime.date(2026, 5, 18): 7,   # Mon May 18  — Hercules and Guilt
+                  datetime.date(2026, 5, 25): 8,   # Mon May 25  — Madeline Miller reading guide
+                  datetime.date(2026, 6,  1): 9,   # Mon Jun 1   — Pegasus
+                  datetime.date(2026, 6,  8): 10,  # Mon Jun 8   — Why Hecuba Matters
+                  datetime.date(2026, 6, 15): 11,  # Mon Jun 15  — Amazons
+                  datetime.date(2026, 6, 22): 12,  # Mon Jun 22  — Where to Start
               }
 
               if today not in publish_schedule:
-                  print(f"No post scheduled for {today} (not a scheduled Thursday). Nothing to publish.")
+                  print(f"No post scheduled for {today} (not a scheduled Monday). Nothing to publish.")
                   sys.exit(0)
 
               week_num = publish_schedule[today]
@@ -72,17 +72,17 @@ jobs:
           # --- Post manifest: (scheduled filename, live filename, publish date display) ---
           posts = {
                1: ('week-01-who-was-penthesilea.html',            'blog-who-was-penthesilea.html',        '6 April 2026'),
-               2: ('week-02-real-myth-bellerophon.html',          'blog-real-myth-bellerophon.html',      '16 April 2026'),
-               3: ('week-03-hecuba-troy.html',                    'blog-hecuba-troy.html',                '23 April 2026'),
-               4: ('week-04-achilles-penthesilea.html',           'blog-achilles-penthesilea.html',       '30 April 2026'),
-               5: ('week-05-what-is-iliad-about.html',            'blog-what-is-iliad-about.html',        '7 May 2026'),
-               6: ('week-06-women-trojan-war.html',               'blog-women-trojan-war.html',           '14 May 2026'),
-               7: ('week-07-hercules-guilt.html',                 'blog-hercules-guilt.html',             '21 May 2026'),
-               8: ('week-08-mythology-madeline-miller.html',      'blog-mythology-madeline-miller.html',  '28 May 2026'),
-               9: ('week-09-pegasus.html',                        'blog-pegasus.html',                    '4 June 2026'),
-              10: ('week-10-why-hecuba-matters.html',             'blog-why-hecuba-matters.html',         '11 June 2026'),
-              11: ('week-11-amazons-greek-mythology.html',        'blog-amazons-greek-mythology.html',    '18 June 2026'),
-              12: ('week-12-where-to-start-greek-mythology.html', 'blog-where-to-start-greek-mythology.html', '25 June 2026'),
+               2: ('week-02-real-myth-bellerophon.html',          'blog-real-myth-bellerophon.html',      '13 April 2026'),
+               3: ('week-03-hecuba-troy.html',                    'blog-hecuba-troy.html',                '20 April 2026'),
+               4: ('week-04-achilles-penthesilea.html',           'blog-achilles-penthesilea.html',       '27 April 2026'),
+               5: ('week-05-what-is-iliad-about.html',            'blog-what-is-iliad-about.html',        '4 May 2026'),
+               6: ('week-06-women-trojan-war.html',               'blog-women-trojan-war.html',           '11 May 2026'),
+               7: ('week-07-hercules-guilt.html',                 'blog-hercules-guilt.html',             '18 May 2026'),
+               8: ('week-08-mythology-madeline-miller.html',      'blog-mythology-madeline-miller.html',  '25 May 2026'),
+               9: ('week-09-pegasus.html',                        'blog-pegasus.html',                    '1 June 2026'),
+              10: ('week-10-why-hecuba-matters.html',             'blog-why-hecuba-matters.html',         '8 June 2026'),
+              11: ('week-11-amazons-greek-mythology.html',        'blog-amazons-greek-mythology.html',    '15 June 2026'),
+              12: ('week-12-where-to-start-greek-mythology.html', 'blog-where-to-start-greek-mythology.html', '22 June 2026'),
           }
 
           src_file, dst_file, pub_date = posts[week_num]
@@ -193,6 +193,119 @@ jobs:
             git commit -m "Publish scheduled blog post — week ${{ steps.publish.outputs.week_num }}"
             git push
           fi
+
+      - name: Verify blog post is live
+        if: steps.publish.outputs.week_num != ''
+        run: |
+          python3 << 'PYEOF'
+          import os
+          import sys
+          import time
+          import urllib.request
+          import urllib.error
+
+          WEEK_NUM = int(os.environ['WEEK_NUM'])
+
+          # Known blog post slugs
+          slugs = {
+               1: 'blog-who-was-penthesilea.html',
+               2: 'blog-real-myth-bellerophon.html',
+               3: 'blog-hecuba-troy.html',
+               4: 'blog-achilles-penthesilea.html',
+               5: 'blog-what-is-iliad-about.html',
+               6: 'blog-women-trojan-war.html',
+               7: 'blog-hercules-guilt.html',
+               8: 'blog-mythology-madeline-miller.html',
+               9: 'blog-pegasus.html',
+              10: 'blog-why-hecuba-matters.html',
+              11: 'blog-amazons-greek-mythology.html',
+              12: 'blog-where-to-start-greek-mythology.html',
+          }
+
+          # Known title keywords per week (safety check — wrong content detection)
+          expected_keywords = {
+               1: 'penthesilea',  2: 'bellerophon',  3: 'hecuba',
+               4: 'achilles',     5: 'iliad',        6: 'women',
+               7: 'hercules',     8: 'miller',       9: 'pegasus',
+              10: 'hecuba',      11: 'amazon',       12: 'mythology',
+          }
+
+          slug = slugs.get(WEEK_NUM)
+          if not slug:
+              print(f"No slug for week {WEEK_NUM}")
+              sys.exit(1)
+
+          url = f'https://georgealexandervela.com/{slug}'
+          keyword = expected_keywords.get(WEEK_NUM, '')
+
+          # Wait for GitHub Pages to deploy (up to 3 minutes)
+          print(f"Verifying blog post: {url}")
+          for attempt in range(6):
+              if attempt > 0:
+                  print(f"  Retry {attempt}/5 (waiting 30s for GitHub Pages deploy)...")
+                  time.sleep(30)
+              try:
+                  req = urllib.request.Request(url, headers={'User-Agent': 'publish-post-verify'})
+                  with urllib.request.urlopen(req, timeout=15) as resp:
+                      body = resp.read().decode('utf-8', errors='replace')
+                      status = resp.status
+
+                      if status != 200:
+                          print(f"  [FAIL] HTTP {status}")
+                          continue
+
+                      # Safety: verify correct content published (not wrong week's post)
+                      if keyword and keyword.lower() not in body.lower():
+                          print(f"  [DANGER] Page is live but does NOT contain expected keyword '{keyword}'!")
+                          print(f"  This may mean the wrong post was published. Manual review needed.")
+                          sys.exit(1)
+
+                      # Check page has real content (not empty/broken)
+                      if len(body) < 5000:
+                          print(f"  [WARN] Page is only {len(body)} bytes — suspiciously small")
+                          continue
+
+                      print(f"  [OK] Blog post verified: HTTP {status}, {len(body)} bytes, keyword '{keyword}' found")
+                      sys.exit(0)
+
+              except urllib.error.HTTPError as e:
+                  print(f"  HTTP {e.code} — page may not be deployed yet")
+              except Exception as e:
+                  print(f"  Error: {e}")
+
+          print(f"  [FAIL] Blog post not accessible after 3 minutes. Check GitHub Pages deployment.")
+          sys.exit(1)
+          PYEOF
+        env:
+          WEEK_NUM: ${{ steps.publish.outputs.week_num }}
+
+      - name: Verify blog.html updated
+        if: steps.publish.outputs.week_num != ''
+        run: |
+          python3 << 'PYEOF'
+          import urllib.request
+          import os
+          import time
+
+          WEEK_NUM = int(os.environ['WEEK_NUM'])
+
+          # Wait a moment for pages to update
+          time.sleep(10)
+
+          url = 'https://georgealexandervela.com/blog.html'
+          try:
+              req = urllib.request.Request(url, headers={'User-Agent': 'publish-post-verify'})
+              with urllib.request.urlopen(req, timeout=15) as resp:
+                  body = resp.read().decode('utf-8', errors='replace')
+                  if f'data-week="{WEEK_NUM}"' in body:
+                      print(f"[OK] blog.html contains week {WEEK_NUM} card")
+                  else:
+                      print(f"[WARN] blog.html does NOT contain week {WEEK_NUM} card yet (may need more deploy time)")
+          except Exception as e:
+              print(f"[WARN] Could not verify blog.html: {e}")
+          PYEOF
+        env:
+          WEEK_NUM: ${{ steps.publish.outputs.week_num }}
 
       - name: Send MailerLite campaign
         if: steps.publish.outputs.week_num != ''
@@ -332,6 +445,20 @@ jobs:
           # --- 4. Schedule for immediate delivery ---
           print("Scheduling campaign for immediate delivery...")
           api('POST', f'/campaigns/{campaign_id}/schedule', {'delivery': 'instant'})
+          # --- 5. Verify campaign status ---
+          import time
+          time.sleep(5)
+          try:
+              check = api('GET', f'/campaigns/{campaign_id}')
+              status = check['data']['status']
+              print(f"Campaign status: {status}")
+              if status in ('sent', 'sending', 'queued'):
+                  print(f"[OK] MailerLite campaign verified: {status}")
+              else:
+                  print(f"[WARN] Campaign status is '{status}' — may need manual check")
+          except Exception as e:
+              print(f"[WARN] Could not verify campaign: {e}")
+
           print(f"Campaign sent. Post: {post_url}")
           PYEOF
         env:
