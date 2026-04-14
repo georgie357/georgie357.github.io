@@ -205,6 +205,8 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Publish scheduled blog post — week ${{ steps.publish.outputs.week_num }}"
+            # Pull --rebase in case another commit landed since checkout
+            git pull --rebase origin main
             git push
           fi
 
