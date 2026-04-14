@@ -113,6 +113,19 @@ jobs:
               blog = f.read()
 
           categories = {1:'Greek Mythology',2:'Greek Mythology',3:'Greek Mythology',4:'Greek Mythology',5:'Greek Mythology',6:'Greek Mythology',7:'Greek Mythology',8:'Reading Guide',9:'Greek Mythology',10:'Greek Mythology',11:'Greek Mythology',12:'Reading Guide'}
+          titles = {
+               2: "The Real Myth of Bellerophon: Why He Fell From Heaven",
+               3: "Hecuba of Troy: The Queen Behind the War",
+               4: "Achilles and Penthesilea: The Love Story History Ignored",
+               5: "What Is the Iliad Actually About?",
+               6: "The Women the Trojan War Forgot",
+               7: "Hercules and Guilt: What the Myths Never Say Directly",
+               8: "Greek Mythology Books for Fans of Madeline Miller",
+               9: "Pegasus: The Horse That Was Never Just a Horse",
+              10: "Why Hecuba Matters: Grief, Power, and Vengeance in Troy",
+              11: "The Amazons: What Greek Mythology Got Wrong",
+              12: "Where to Start With Greek Mythology Retellings",
+          }
           excerpts = {
               2: "Bellerophon tamed Pegasus, killed the Chimera, and survived three attempts to kill him. The myth everyone remembers is the fall. The story worth reading is everything that came before it.",
               3: "Hecuba was the most competent person in any room she entered. The myth of the Trojan War is full of gods and heroes; she ran the city that made the war possible for ten years.",
@@ -137,6 +150,7 @@ jobs:
               wk = f"{week_num:02d}"
               cat = categories.get(week_num, 'Greek Mythology')
               exc = excerpts.get(week_num, '')
+              title = titles.get(week_num, '')
               a  = f'    <!-- POST-WEEK-{wk} -->\n'
               a += f'    <article class="blog-card" data-week="{week_num}" data-live="true">\n'
               a += f'      <div class="blog-card-meta">\n'
