@@ -323,6 +323,7 @@ jobs:
 
       - name: Send MailerLite campaign
         if: steps.publish.outputs.week_num != ''
+        continue-on-error: true
         run: |
           python3 << 'PYEOF'
           import os
@@ -452,7 +453,28 @@ jobs:
               }],
               'groups': group_ids,
           }
-          campaign = api('POST', '/campaigns', campaign_body)
+          try:
+              campaign = api('POST', '/campaigns', campaign_body)
+          except urllib.error.HTTPError as e:
+              if e.code == 422:
+                  # Free MailerLite plan does not allow HTML content via API.
+                  # Create a draft without content so it can be sent from the dashboard.
+                  print(f"[WARN] HTML content rejected (plan limit). Creating draft without content...")
+                  fallback_body = {
+                      'name':   campaign_body['name'],
+                      'type':   'regular',
+                      'emails': [{
+                          'subject':   campaign_body['emails'][0]['subject'],
+                          'from_name': campaign_body['emails'][0]['from_name'],
+                          'from':      campaign_body['emails'][0]['from'],
+                      }],
+                      'groups': group_ids,
+                  }
+                  campaign = api('POST', '/campaigns', fallback_body)
+                  print(f"[INFO] Draft campaign created. Go to MailerLite dashboard to add content and send.")
+                  print(f"[INFO] Post URL: {post_url}")
+                  sys.exit(0)
+              raise
           campaign_id = campaign['data']['id']
           print(f"Campaign created: id={campaign_id}")
 
