@@ -81,19 +81,29 @@ Or from the GitHub web UI:
 
 ---
 
-## MailerLite Email
+## MailerLite Email — RSS Automation (fully automatic)
 
-The workflow creates a **draft campaign** in MailerLite after each publish.
-The free plan does not allow sending HTML campaigns via API.
+The publish workflow updates `feed.xml` with each new post.
+MailerLite's RSS Automation watches the feed and emails subscribers automatically.
 
-**After each Monday publish:**
+### One-time setup (do this once in MailerLite dashboard)
+
 1. Log into [MailerLite](https://dashboard.mailerlite.com)
-2. Go to **Campaigns**
-3. Find the draft named `Mythology Notes — Week N: [title]`
-4. Add content using the editor
-5. Send
+2. Go to **Automations → Create automation**
+3. Choose trigger: **RSS campaign**
+4. Set feed URL: `https://georgealexandervela.com/feed.xml`
+5. Set frequency: **Weekly** (or "When new item appears")
+6. Design the email using the drag-and-drop editor (use `{rss_item_title}`, `{rss_item_url}`, `{rss_item_description}` merge tags)
+7. Set from name: `George Alexander Vela`
+8. Set from email: `labors.heracles@gmail.com`
+9. Activate the automation
 
-*To fully automate this, upgrade to the MailerLite Advanced plan.*
+**After that: fully automatic.** Each Monday when the post publishes, `feed.xml` gets a new item, MailerLite detects it and sends the email. No manual work.
+
+### Feed URL
+```
+https://georgealexandervela.com/feed.xml
+```
 
 ---
 

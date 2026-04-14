@@ -189,6 +189,62 @@ jobs:
           else:
               print(f"Note: {dst_file} already in sitemap.xml")
 
+          # --- Update feed.xml: prepend new item ---
+          # MailerLite RSS Automation reads this feed and auto-emails subscribers.
+          import email.utils
+
+          feed_path = 'feed.xml'
+          pub_dt    = datetime.datetime.combine(
+              datetime.date.today(), datetime.time(9, 0),
+              tzinfo=datetime.timezone.utc
+          )
+          pub_rfc   = email.utils.formatdate(pub_dt.timestamp(), usegmt=True)
+          _post_url = f"https://georgealexandervela.com/{dst_file}"
+
+          # Use the title and excerpt from earlier dicts
+          _title   = titles.get(week_num, dst_file)
+          _excerpt = excerpts.get(week_num, '')
+          # Strip HTML tags from excerpt for RSS description
+          import re
+          _desc = re.sub(r'<[^>]+>', '', _excerpt)
+
+          new_item = f"""  <item>
+    <title>{_title}</title>
+    <link>{_post_url}</link>
+    <guid isPermaLink="true">{_post_url}</guid>
+    <pubDate>{pub_rfc}</pubDate>
+    <description>{_desc}</description>
+  </item>"""
+
+          if not os.path.exists(feed_path):
+              # Create the feed from scratch
+              feed_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>From the Mythology Notes — George Alexander Vela</title>
+    <link>https://georgealexandervela.com/blog.html</link>
+    <description>Essays on Greek mythology by George Alexander Vela.</description>
+    <language>en-us</language>
+    <atom:link href="https://georgealexandervela.com/feed.xml" rel="self" type="application/rss+xml"/>
+{new_item}
+  </channel>
+</rss>"""
+              with open(feed_path, 'w', encoding='utf-8') as f:
+                  f.write(feed_content)
+              print(f"Created feed.xml with week {week_num} item")
+          elif _post_url in open(feed_path).read():
+              print(f"Note: {dst_file} already in feed.xml")
+          else:
+              # Prepend new item after <channel> opening tags (before first <item>)
+              feed = open(feed_path, 'r', encoding='utf-8').read()
+              if '<item>' in feed:
+                  feed = feed.replace('  <item>', new_item + '\n  <item>', 1)
+              else:
+                  feed = feed.replace('</channel>', new_item + '\n  </channel>')
+              with open(feed_path, 'w', encoding='utf-8') as f:
+                  f.write(feed)
+              print(f"Updated feed.xml: prepended week {week_num} item")
+
           with open(os.environ['GITHUB_OUTPUT'], 'a') as gh_out:
               print(f"week_num={week_num}", file=gh_out)
           print("Done.")

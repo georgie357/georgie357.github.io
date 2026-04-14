@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>From the Mythology Notes — George Alexander Vela</title>
+    <link>https://georgealexandervela.com/blog.html</link>
+    <description>Essays on Greek mythology by George Alexander Vela.</description>
+    <language>en-us</language>
+    <atom:link href="https://georgealexandervela.com/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>Hecuba of Troy: The Queen Behind the War</title>
+    <link>https://georgealexandervela.com/blog-hecuba-troy.html</link>
+    <guid isPermaLink="true">https://georgealexandervela.com/blog-hecuba-troy.html</guid>
+    <pubDate>Mon, 20 Apr 2026 09:00:00 GMT</pubDate>
+    <description>Hecuba was the most competent person in any room she entered. The myth of the Trojan War is full of gods and heroes; she ran the city that made the war possible for ten years.</description>
+  </item>
+  <item>
+    <title>The Real Myth of Bellerophon: Why He Fell From Heaven</title>
+    <link>https://georgealexandervela.com/blog-real-myth-bellerophon.html</link>
+    <guid isPermaLink="true">https://georgealexandervela.com/blog-real-myth-bellerophon.html</guid>
+    <pubDate>Mon, 13 Apr 2026 09:00:00 GMT</pubDate>
+    <description>Bellerophon tamed Pegasus, killed the Chimera, and survived three attempts to kill him. The myth everyone remembers is the fall. The story worth reading is everything that came before it.</description>
+  </item>
+  <item>
+    <title>Who Was Penthesilea? The Amazon Queen History Almost Forgot</title>
+    <link>https://georgealexandervela.com/blog-who-was-penthesilea.html</link>
+    <guid isPermaLink="true">https://georgealexandervela.com/blog-who-was-penthesilea.html</guid>
+    <pubDate>Mon, 06 Apr 2026 09:00:00 GMT</pubDate>
+    <description>Her name appears in Homer's Iliad exactly once. What the summaries of the lost Aethiopis tell us about the Amazon queen who came to Troy knowing she would die — and came anyway.</description>
+  </item>
+  </channel>
+</rss>
