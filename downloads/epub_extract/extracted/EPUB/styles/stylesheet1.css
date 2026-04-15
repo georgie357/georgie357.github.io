@@ -1,0 +1,227 @@
+/* === HERCULES EPUB STYLESHEET === */
+
+@page {
+  margin: 1.2em;
+}
+
+body {
+  font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 1em;
+  line-height: 1.7;
+  color: #1a1a1a;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- FRONT MATTER PAGES --- */
+
+.half-title-page {
+  text-align: center;
+  padding-top: 40%;
+  page-break-after: always;
+}
+
+.half-title-page h1,
+.half-title-page .book-title {
+  font-size: 1.6em;
+  font-weight: normal;
+  font-variant: small-caps;
+  letter-spacing: 0.15em;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.title-page {
+  text-align: center;
+  padding-top: 30%;
+  page-break-after: always;
+}
+
+.title-page h1,
+.title-page .book-title {
+  font-size: 2em;
+  font-weight: normal;
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3em;
+  border: none;
+  padding: 0;
+}
+
+.title-page .subtitle {
+  font-style: italic;
+  font-size: 0.95em;
+  color: #666;
+  margin-bottom: 2.5em;
+}
+
+.title-page .ornament {
+  font-size: 1.3em;
+  color: #8b6914;
+  letter-spacing: 0.5em;
+  margin-bottom: 2.5em;
+}
+
+.title-page .author {
+  font-variant: small-caps;
+  letter-spacing: 0.2em;
+  font-size: 1.05em;
+  color: #444;
+}
+
+.copyright-page {
+  font-size: 0.78em;
+  color: #888;
+  line-height: 1.9;
+  text-align: center;
+  padding-top: 60%;
+  page-break-after: always;
+}
+
+.copyright-page p {
+  margin: 0.2em 0;
+  text-indent: 0;
+}
+
+.epigraph-page {
+  text-align: center;
+  padding-top: 35%;
+  page-break-after: always;
+}
+
+.epigraph-page .epigraph {
+  font-style: italic;
+  font-size: 1em;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 1.2em;
+}
+
+.epigraph-page .epigraph-attribution {
+  font-size: 0.85em;
+  color: #777;
+  font-style: normal;
+}
+
+/* --- CHAPTER CONTENT --- */
+
+.chapter {
+  margin: 0;
+  padding: 0;
+}
+
+.chapter-header {
+  text-align: center;
+  margin-top: 3em;
+  margin-bottom: 2.5em;
+  page-break-after: avoid;
+}
+
+.chapter-label {
+  font-size: 0.8em;
+  font-variant: small-caps;
+  letter-spacing: 0.35em;
+  color: #555;
+  display: block;
+  margin-bottom: 0.6em;
+}
+
+.chapter-title,
+.chapter-header h2 {
+  font-size: 1.4em;
+  font-weight: normal;
+  font-style: italic;
+  color: #1a1a1a;
+  letter-spacing: 0.03em;
+  text-align: center;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Override pandoc's default h1/h2 styling */
+h1 {
+  font-size: 1.6em;
+  font-weight: normal;
+  text-align: center;
+  margin: 2em 0 1em 0;
+  page-break-before: auto;
+  border: none;
+}
+
+h2 {
+  font-size: 1.3em;
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+  border: none;
+}
+
+/* Paragraphs */
+.chapter p {
+  text-indent: 1.5em;
+  margin: 0;
+  text-align: justify;
+  orphans: 2;
+  widows: 2;
+}
+
+.chapter p.no-indent,
+.chapter p:first-of-type {
+  text-indent: 0;
+}
+
+/* Drop cap */
+.chapter p.drop-cap::first-letter {
+  float: left;
+  font-size: 3.2em;
+  line-height: 0.8;
+  padding-right: 0.06em;
+  padding-top: 0.05em;
+  color: #8b6914;
+  font-family: Georgia, serif;
+}
+
+/* Section break ornaments */
+.section-break {
+  text-align: center;
+  margin: 1.8em 0;
+  font-size: 0.95em;
+  letter-spacing: 0.5em;
+  color: #8b6914;
+  page-break-inside: avoid;
+  clear: both;
+}
+
+/* Emphasis */
+em {
+  font-style: italic;
+}
+
+/* General paragraph defaults (override pandoc) */
+p {
+  margin: 0;
+  text-indent: 1.5em;
+  text-align: justify;
+}
+
+/* Links (for TOC) */
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* TOC styling */
+nav#toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 1em 0;
+}
+
+nav#toc ol li {
+  margin: 0.8em 0;
+  font-size: 1em;
+}

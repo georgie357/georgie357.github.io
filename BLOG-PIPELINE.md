@@ -101,7 +101,8 @@ Brevo's RSS Automation watches the feed and emails subscribers automatically.
 Form: **Blog Newsletter Signup** (created in Brevo dashboard)
 - Builder: Marketing → Forms → Sign-up
 - Form ID: `69ded9fe24cbc036c65565ff`
-- Embed: iframe from `https://978199fb.sibforms.com/serve/MUIFAH...`
+- Embed: iframe from `https://978199fb.sibforms.com/serve/MUIFAHSyDkZj9Lr_3K9fn5PlYXCtMW7mAzf3VMl5-RY3YD74omgeYXMC2DkdA5LOKd75i1WhClw-TUIx2o16qhM8Fi_Q_xEDHIo-iCo7HH5-MCYb0nLNQVV339TSKsUeGWf3_E6waXxWkbuhQrwBjr9OzEgZRKkr66XUKT4rh-uRrc35IyZriKQXc0ZQO32nNu-XDpj5YFeieygtBg==`
+  - NOTE: URL contains capital `I` characters that look like lowercase `l` in many fonts — do not retype, always copy from Brevo dashboard
 - Saves to: **Your first list**
 
 ### Feed URL
