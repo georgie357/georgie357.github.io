@@ -2,8 +2,9 @@ name: Publish Scheduled Blog Post
 
 on:
   schedule:
-    # Every Monday at 9:00 AM UTC (2 AM Pacific)
-    - cron: '0 9 * * 1'
+    # Every Tuesday at 8:00 AM Pacific (15:00 UTC during PDT)
+    # Research: Tuesday 8AM Pacific is optimal for blog engagement and indexing
+    - cron: '0 15 * * 2'
   workflow_dispatch:
     inputs:
       week_override:
@@ -44,17 +45,18 @@ jobs:
               # Week 1 was published manually on 2026-04-06 (Monday launch).
               # Weeks 2-12 publish on Mondays at 9 AM UTC.
               publish_schedule = {
-                  datetime.date(2026, 4, 13): 2,   # Mon Apr 13  — Bellerophon
-                  datetime.date(2026, 4, 20): 3,   # Mon Apr 20  — Hecuba of Troy
-                  datetime.date(2026, 4, 27): 4,   # Mon Apr 27  — Achilles & Penthesilea
-                  datetime.date(2026, 5,  4): 5,   # Mon May 4   — What Is the Iliad About
-                  datetime.date(2026, 5, 11): 6,   # Mon May 11  — Women the Trojan War Forgot
-                  datetime.date(2026, 5, 18): 7,   # Mon May 18  — Hercules and Guilt
-                  datetime.date(2026, 5, 25): 8,   # Mon May 25  — Madeline Miller reading guide
-                  datetime.date(2026, 6,  1): 9,   # Mon Jun 1   — Pegasus
-                  datetime.date(2026, 6,  8): 10,  # Mon Jun 8   — Why Hecuba Matters
-                  datetime.date(2026, 6, 15): 11,  # Mon Jun 15  — Amazons
-                  datetime.date(2026, 6, 22): 12,  # Mon Jun 22  — Where to Start
+                  # Week 2 published manually Mon Apr 13 (before Tuesday optimization)
+                  # Weeks 3-12 shifted to Tuesday 8AM Pacific per research recommendation
+                  datetime.date(2026, 4, 21): 3,   # Tue Apr 21  — Hecuba of Troy
+                  datetime.date(2026, 4, 28): 4,   # Tue Apr 28  — Achilles & Penthesilea
+                  datetime.date(2026, 5,  5): 5,   # Tue May 5   — What Is the Iliad About
+                  datetime.date(2026, 5, 12): 6,   # Tue May 12  — Women the Trojan War Forgot
+                  datetime.date(2026, 5, 19): 7,   # Tue May 19  — Hercules and Guilt
+                  datetime.date(2026, 5, 26): 8,   # Tue May 26  — Madeline Miller reading guide
+                  datetime.date(2026, 6,  2): 9,   # Tue Jun 2   — Pegasus
+                  datetime.date(2026, 6,  9): 10,  # Tue Jun 9   — Why Hecuba Matters
+                  datetime.date(2026, 6, 16): 11,  # Tue Jun 16  — Amazons
+                  datetime.date(2026, 6, 23): 12,  # Tue Jun 23  — Where to Start
               }
 
               if today not in publish_schedule:
@@ -195,7 +197,7 @@ jobs:
 
           feed_path = 'feed.xml'
           pub_dt    = datetime.datetime.combine(
-              datetime.date.today(), datetime.time(9, 0),
+              datetime.date.today(), datetime.time(15, 0),
               tzinfo=datetime.timezone.utc
           )
           pub_rfc   = email.utils.formatdate(pub_dt.timestamp(), usegmt=True)
