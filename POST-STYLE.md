@@ -89,6 +89,52 @@ Delivered with a straight face. It emerges from the absurdity the myths already 
 
 ---
 
+### Humor and wit — specific techniques
+
+The posts sample the books. Readers should enjoy them. The humor is not separate from the scholarship — it *is* the scholarship, delivered with personality. These are the patterns to use:
+
+**1. The short punch that names the situation**
+After a long analytical build, a short sentence that names what just happened with wry precision. The short sentence has an opinion.
+- *"This is how it happens, sometimes."*
+- *"The fall is the myth. Everything else is the run-up."*
+- *"The myth is in a hurry. Ithaca is waiting."*
+- *"Euripides would not be surprised."*
+- *"She was waiting when he came home."*
+
+**2. The "available for comment" style dry closer**
+A line that closes the argument by noting who is absent from the discussion, or what the outcome already was before anyone noticed.
+- *"Ovid is not available for comment."*
+- *"Homer is not available to clarify. He trusted his audience about a great many things. This was probably wise."*
+
+**3. Narrator naming the subject's qualities — stated directly, with precision**
+The narrator has opinions about figures in the myth and states them. Not cautious. Not hedged.
+- *"Aeschylus had opinions about Agamemnon. They come through."*
+- *"This is a consistent position. It is also, it must be said, Plato."*
+- *"Plato does not have much patience for men who charm their way into things rather than dying for them."*
+- *"Odysseus, who presumably designed the deception, understands how people rationalize decisions they want to make anyway."*
+
+**4. Wry precision in describing institutional behavior**
+The myth's machinery — divine, civic, judicial — described with the straight-faced precision of someone noting a bureaucratic process.
+- *"Athens produced a great deal of official versions, and was very good at them."*
+- *"The Greeks had a procedure for this, the way a modern city has a procedure for condemned buildings: efficient, documented, indicating nothing whatsoever about whether anyone inside had fair warning."*
+- *"The war lasted ten years, which is a long time by any measure, and an extraordinarily long time to watch your sons die in a sequence that had the relentless quality of a creditor working through a list."*
+- *"the gods kept the horse and gave the man a limp"*
+
+**5. The happy version doesn't have a story**
+When a character's defining quality is loss or failure, note this directly — the myth has no use for the version where things went well.
+- *"The happy version of Orpheus does not have a story. He just has a wife and a lyre, and the myth has no particular use for those."*
+- *"The other Argonauts have objectives. Orpheus has a reason."*
+
+**6. "Which is either X or Y" — the split verdict**
+The narrator refuses to resolve ambiguity that isn't resolvable. States both interpretations flatly. Does not pick a side if both sides are correct.
+- *"which is either a very sophisticated formal choice or a very convenient excuse, depending on your tolerance for Hellenistic poetry"*
+- *"This is, depending on your view of the matter, either the birth of civilization or a very sophisticated way of changing the subject."*
+- *"which is either embarrassing or a sign that Homer was doing something genuinely difficult"*
+
+**The tone is: interested, not reverent.** The myths are genuinely fascinating and also frequently absurd. Both things are true simultaneously. The narrator finds them both, and says so.
+
+---
+
 ### Philosophical digressions
 
 The narrator pauses to make a point the story itself cannot make directly. On trust, grief, justice, vengeance, motherhood, the relationship between knowledge and power. These are not intrusive; they feel like the narrator noticing something the narrative makes visible. They are not padding. They are the argument of the essay.
