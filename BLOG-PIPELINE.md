@@ -81,24 +81,28 @@ Or from the GitHub web UI:
 
 ---
 
-## MailerLite Email — RSS Automation (fully automatic)
+## Brevo Email — RSS Automation (fully automatic)
 
 The publish workflow updates `feed.xml` with each new post.
-MailerLite's RSS Automation watches the feed and emails subscribers automatically.
+Brevo's RSS Automation watches the feed and emails subscribers automatically.
 
-### One-time setup (do this once in MailerLite dashboard)
+### Setup (one-time, via Brevo App Store)
 
-1. Log into [MailerLite](https://dashboard.mailerlite.com)
-2. Go to **Automations → Create automation**
-3. Choose trigger: **RSS campaign**
-4. Set feed URL: `https://georgealexandervela.com/feed.xml`
-5. Set frequency: **Weekly** (or "When new item appears")
-6. Design the email using the drag-and-drop editor (use `{rss_item_title}`, `{rss_item_url}`, `{rss_item_description}` merge tags)
-7. Set from name: `George Alexander Vela`
-8. Set from email: `labors.heracles@gmail.com`
-9. Activate the automation
+1. Log into [Brevo](https://app.brevo.com)
+2. Go to **App Store → RSS campaign** integration
+3. Set feed URL: `https://georgealexandervela.com/feed.xml`
+4. Select template and configure recipients
+5. Activate the automation
 
-**After that: fully automatic.** Each Monday when the post publishes, `feed.xml` gets a new item, MailerLite detects it and sends the email. No manual work.
+**After that: fully automatic.** Each Monday when the post publishes, `feed.xml` gets a new item, Brevo detects it and sends the email. No manual work.
+
+### Signup form
+
+Form: **Blog Newsletter Signup** (created in Brevo dashboard)
+- Builder: Marketing → Forms → Sign-up
+- Form ID: `69ded9fe24cbc036c65565ff`
+- Embed: iframe from `https://978199fb.sibforms.com/serve/MUIFAH...`
+- Saves to: **Your first list**
 
 ### Feed URL
 ```
