@@ -2,8 +2,8 @@ name: Verify Blog Post Published
 
 on:
   schedule:
-    # Every Tuesday at 10:00 AM UTC (3 AM Pacific) — day after Monday publish
-    - cron: '0 10 * * 2'
+    # Every Tuesday at 17:00 UTC (10 AM Pacific) — 2 hours after publish fires at 15:00 UTC
+    - cron: '0 17 * * 2'
   workflow_dispatch:
     inputs:
       week_override:
