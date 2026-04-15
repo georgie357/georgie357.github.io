@@ -2,27 +2,27 @@
 
 ## Schedule
 
-| Week | Date (Monday) | Post | Status |
+| Week | Date (Tuesday) | Post | Status |
 |------|--------------|------|--------|
-| 1  | 6 Apr 2026  | Who Was Penthesilea? | ✅ Live |
-| 2  | 13 Apr 2026 | The Real Myth of Bellerophon | ✅ Live |
-| 3  | 20 Apr 2026 | Hecuba of Troy: The Queen Behind the War | ✅ Live |
-| 4  | 27 Apr 2026 | Achilles and Penthesilea: The Love Story History Ignored | ⏳ Scheduled |
-| 5  | 4 May 2026  | What Is the Iliad Actually About? | ⏳ Scheduled |
-| 6  | 11 May 2026 | The Women the Trojan War Forgot | ⏳ Scheduled |
-| 7  | 18 May 2026 | Hercules and Guilt: What the Myths Never Say Directly | ⏳ Scheduled |
-| 8  | 25 May 2026 | Greek Mythology Books for Fans of Madeline Miller | ⏳ Scheduled |
-| 9  | 1 Jun 2026  | Pegasus: The Horse That Was Never Just a Horse | ⏳ Scheduled |
-| 10 | 8 Jun 2026  | Why Hecuba Matters: Grief, Power, and Vengeance in Troy | ⏳ Scheduled |
-| 11 | 15 Jun 2026 | The Amazons: What Greek Mythology Got Wrong | ⏳ Scheduled |
-| 12 | 22 Jun 2026 | Where to Start With Greek Mythology Retellings | ⏳ Scheduled |
+| 1  | 6 Apr 2026   | Who Was Penthesilea? | ✅ Live |
+| 2  | 13 Apr 2026  | The Real Myth of Bellerophon | ✅ Live |
+| 3  | 21 Apr 2026  | Hecuba of Troy: The Queen Behind the War | ⏳ Scheduled |
+| 4  | 28 Apr 2026  | Achilles and Penthesilea: The Love Story History Ignored | ⏳ Scheduled |
+| 5  | 5 May 2026   | What Is the Iliad Actually About? | ⏳ Scheduled |
+| 6  | 12 May 2026  | The Women the Trojan War Forgot | ⏳ Scheduled |
+| 7  | 19 May 2026  | Hercules and Guilt: What the Myths Never Say Directly | ⏳ Scheduled |
+| 8  | 26 May 2026  | Greek Mythology Books for Fans of Madeline Miller | ⏳ Scheduled |
+| 9  | 2 Jun 2026   | Pegasus: The Horse That Was Never Just a Horse | ⏳ Scheduled |
+| 10 | 9 Jun 2026   | Why Hecuba Matters: Grief, Power, and Vengeance in Troy | ⏳ Scheduled |
+| 11 | 16 Jun 2026  | The Amazons: What Greek Mythology Got Wrong | ⏳ Scheduled |
+| 12 | 23 Jun 2026  | Where to Start With Greek Mythology Retellings | ⏳ Scheduled |
 
 ---
 
 ## How It Works
 
 ```
-Every Monday 9 AM UTC
+Every Tuesday 8 AM Pacific (15:00 UTC)
        │
        ▼
 publish-post.yml (GitHub Actions)
@@ -31,13 +31,11 @@ publish-post.yml (GitHub Actions)
        ├── 2. Copy scheduled-posts/week-XX.html → root
        ├── 3. Insert article card into blog.html
        ├── 4. Update sitemap.xml
-       ├── 5. Commit + push
-       ├── 6. Verify post is live (HTTP check)
-       └── 7. Create MailerLite draft campaign
-                   │
-                   └── (free plan: go to MailerLite dashboard to send)
+       ├── 5. Update feed.xml (Brevo RSS picks this up → emails subscribers)
+       ├── 6. Commit + push
+       └── 7. Verify post is live (HTTP check)
 
-Every Tuesday 10 AM UTC
+Every Tuesday 10 AM Pacific (17:00 UTC)
        │
        ▼
 verify-blog-publish.yml (GitHub Actions)
@@ -52,8 +50,8 @@ verify-blog-publish.yml (GitHub Actions)
 
 | File | Trigger | Purpose |
 |------|---------|---------|
-| `.github/workflows/publish-post.yml` | Monday 9 AM UTC + manual | Publishes the week's post |
-| `.github/workflows/verify-blog-publish.yml` | Tuesday 10 AM UTC + manual | Checks post went live, opens issue if not |
+| `.github/workflows/publish-post.yml` | Tuesday 8 AM Pacific (15:00 UTC) + manual | Publishes the week's post |
+| `.github/workflows/verify-blog-publish.yml` | Tuesday 10 AM Pacific (17:00 UTC) + manual | Checks post went live, opens issue if not |
 
 ---
 
@@ -119,8 +117,8 @@ https://georgealexandervela.com/feed.xml
 2. Add an entry to the `posts` dict in `publish-post.yml`
 3. Add the title to the `titles` dict in `publish-post.yml`
 4. Add the excerpt to the `excerpts` dict in `publish-post.yml`
-5. Add the MailerLite copy to `POST_DATA` in the Send MailerLite step
-6. Add to the schedule table in this file
+5. Add to the schedule table in this file
+   - Email is fully automatic via Brevo RSS — no extra step needed
 
 ---
 
@@ -142,5 +140,4 @@ https://georgealexandervela.com/feed.xml
 | Issue | Status |
 |-------|--------|
 | GitHub Actions cron can be delayed up to ~1 hr on free accounts | Acceptable — Tuesday verifier catches any misses |
-| MailerLite HTML content rejected on free plan | Handled — creates draft, send manually from dashboard |
 | No SMS/email alert on failure | Handled — GitHub Issue opened automatically by verifier |
