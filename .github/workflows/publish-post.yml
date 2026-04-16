@@ -1,9 +1,11 @@
 name: Publish Scheduled Blog Post
 
 on:
+  push:
+    paths:
+      - '.publish-trigger'  # file that never exists; prevents push from firing this workflow
   schedule:
     # Every Tuesday at 8:00 AM Pacific (15:00 UTC during PDT)
-    # Research: Tuesday 8AM Pacific is optimal for blog engagement and indexing
     - cron: '0 15 * * 2'
   workflow_dispatch:
     inputs:
@@ -13,26 +15,7 @@ on:
         default: ''
 
 jobs:
-  # This job always runs and succeeds — prevents "No jobs were run" failure emails
-  # when GitHub Pages auto-triggers workflows on every push to main.
-  gate:
-    runs-on: ubuntu-latest
-    outputs:
-      should_run: ${{ steps.check.outputs.should_run }}
-    steps:
-      - id: check
-        run: |
-          if [[ "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "should_run=true" >> "$GITHUB_OUTPUT"
-            echo "Trigger: ${{ github.event_name }} — proceeding with publish"
-          else
-            echo "should_run=false" >> "$GITHUB_OUTPUT"
-            echo "Trigger: ${{ github.event_name }} — skipping (not a scheduled or manual run)"
-          fi
-
   publish:
-    needs: gate
-    if: needs.gate.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write
