@@ -2,8 +2,8 @@ name: Publish Scheduled Blog Post
 
 on:
   push:
-    paths:
-      - '.publish-trigger'  # file that never exists; prevents push from firing this workflow
+    branches:
+      - main
   schedule:
     # Every Tuesday at 8:00 AM Pacific (15:00 UTC during PDT)
     - cron: '0 15 * * 2'

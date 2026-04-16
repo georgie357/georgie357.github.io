@@ -2,8 +2,8 @@ name: Verify Blog Post Published
 
 on:
   push:
-    paths:
-      - '.publish-trigger'  # file that never exists; prevents push from firing this workflow
+    branches:
+      - main
   schedule:
     # Every Tuesday at 17:00 UTC (10 AM Pacific) — 2 hours after publish fires at 15:00 UTC
     - cron: '0 17 * * 2'
