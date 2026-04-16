@@ -98,6 +98,24 @@
   });
 })();
 
+/* --- Amazon Click Tracking --- */
+(function () {
+  document.addEventListener('click', function (e) {
+    const link = e.target.closest('a[href*="amazon.com"]');
+    if (!link) return;
+    if (typeof gtag !== 'function') return;
+    const url  = link.getAttribute('href') || '';
+    const asin = (url.match(/\/dp\/([A-Z0-9]{10})/) || [])[1] || '';
+    const text = (link.textContent || '').trim();
+    gtag('event', 'amazon_click', {
+      link_url:  url,
+      asin:      asin,
+      link_text: text,
+      page_path: location.pathname
+    });
+  });
+})();
+
 /* --- Contact Form Handler --- */
 (function () {
   const form = document.querySelector('.contact-form');
