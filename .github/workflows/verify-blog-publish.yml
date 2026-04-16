@@ -145,41 +145,35 @@ jobs:
               return;
             }
 
+            const body = [
+              '## Scheduled blog post did not publish',
+              '',
+              'Week: ' + week,
+              'Expected URL: ' + url,
+              'Status: Not live (HTTP 404 or unreachable)',
+              '',
+              '### What happened',
+              'The publish workflow either failed silently or the post is not yet live.',
+              '',
+              '### How to fix',
+              '',
+              'Re-trigger the publish workflow:',
+              '```',
+              'gh workflow run publish-post.yml --repo georgie357/georgie357.github.io --field week_override=' + week,
+              '```',
+              '',
+              'Or go to Actions > Publish Scheduled Blog Post > Run workflow and set week_override to ' + week,
+              '',
+              '### After fixing',
+              'Close this issue once confirmed live at: ' + url,
+            ].join('\n');
+
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo:  context.repo.repo,
-              title: `⚠️ Blog post Week ${week} did not publish on schedule`,
+              title: 'Blog post Week ' + week + ' did not publish on schedule',
               labels: ['blog-publish-failure'],
-              body: `## Scheduled blog post did not publish
-
-**Week:** ${week}
-**Expected URL:** ${url}
-**Status:** Not live (HTTP 404 or unreachable)
-
-### What happened
-The Monday publish workflow either failed silently or the post is not yet live.
-
-### How to fix
-
-**Option 1 — Re-trigger the publish workflow (recommended):**
-\`\`\`
-gh workflow run publish-post.yml \\
-  --repo georgie357/georgie357.github.io \\
-  --field week_override=${week}
-\`\`\`
-
-**Option 2 — Manually from GitHub:**
-Go to **Actions → Publish Scheduled Blog Post → Run workflow** and set week_override to \`${week}\`.
-
-**Option 3 — Check what went wrong:**
-\`\`\`
-gh run list --repo georgie357/georgie357.github.io --workflow publish-post.yml --limit 5
-\`\`\`
-
-### After fixing
-Close this issue once the post is confirmed live at:
-${url}
-`,
+              body: body,
             });
 
             console.log(`Issue created for week ${week}`);

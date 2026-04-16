@@ -218,27 +218,31 @@ jobs:
           import re
           _desc = re.sub(r'<[^>]+>', '', _excerpt)
 
-          new_item = f"""  <item>
-    <title>{_title}</title>
-    <link>{_post_url}</link>
-    <guid isPermaLink="true">{_post_url}</guid>
-    <pubDate>{pub_rfc}</pubDate>
-    <description>{_desc}</description>
-  </item>"""
+          new_item = (
+              '  <item>\n'
+              '    <title>' + _title + '</title>\n'
+              '    <link>' + _post_url + '</link>\n'
+              '    <guid isPermaLink="true">' + _post_url + '</guid>\n'
+              '    <pubDate>' + pub_rfc + '</pubDate>\n'
+              '    <description>' + _desc + '</description>\n'
+              '  </item>'
+          )
 
           if not os.path.exists(feed_path):
               # Create the feed from scratch
-              feed_content = f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>From the Mythology Notes — George Alexander Vela</title>
-    <link>https://georgealexandervela.com/blog.html</link>
-    <description>Essays on Greek mythology by George Alexander Vela.</description>
-    <language>en-us</language>
-    <atom:link href="https://georgealexandervela.com/feed.xml" rel="self" type="application/rss+xml"/>
-{new_item}
-  </channel>
-</rss>"""
+              feed_content = (
+                  '<?xml version="1.0" encoding="UTF-8"?>\n'
+                  '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
+                  '  <channel>\n'
+                  '    <title>From the Mythology Notes - George Alexander Vela</title>\n'
+                  '    <link>https://georgealexandervela.com/blog.html</link>\n'
+                  '    <description>Essays on Greek mythology by George Alexander Vela.</description>\n'
+                  '    <language>en-us</language>\n'
+                  '    <atom:link href="https://georgealexandervela.com/feed.xml" rel="self" type="application/rss+xml"/>\n'
+                  + new_item + '\n'
+                  '  </channel>\n'
+                  '</rss>'
+              )
               with open(feed_path, 'w', encoding='utf-8') as f:
                   f.write(feed_content)
               print(f"Created feed.xml with week {week_num} item")
