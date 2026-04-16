@@ -32,6 +32,14 @@ jobs:
           import urllib.request
           import urllib.error
 
+          # Only run on schedule or workflow_dispatch; exit cleanly on push
+          event = os.environ.get('GITHUB_EVENT_NAME', '')
+          if event not in ('schedule', 'workflow_dispatch'):
+              print(f"Triggered by '{event}' — not a scheduled or manual run. Nothing to do.")
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  print("skip=true", file=f)
+              sys.exit(0)
+
           # --- Determine which week should be live ---
           week_override = os.environ.get('WEEK_OVERRIDE', '').strip()
           if week_override:

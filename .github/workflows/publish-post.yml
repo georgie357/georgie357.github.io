@@ -32,6 +32,12 @@ jobs:
           import os
           import sys
 
+          # Only run on schedule or workflow_dispatch; exit cleanly on push
+          event = os.environ.get('GITHUB_EVENT_NAME', '')
+          if event not in ('schedule', 'workflow_dispatch'):
+              print(f"Triggered by '{event}' — not a scheduled or manual run. Nothing to do.")
+              sys.exit(0)
+
           # --- Determine week number ---
           week_override = os.environ.get('WEEK_OVERRIDE', '').strip()
           if week_override:
