@@ -1635,4 +1635,10 @@ a:hover { color: var(--gold-light); }
 
   .hero-actions { flex-direction: column; }
   .hero-actions .btn { text-align: center; }
+
+  /* Force Brevo/Sibforms iframe to fit mobile container */
+  .mailing-inner iframe {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
 }
