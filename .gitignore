@@ -32,3 +32,9 @@ service-account.json
 
 # Draft/scheduled posts — keep local only, publish to root when ready
 scheduled-posts/
+
+# Content planning — keep local only
+BLOG-PIPELINE.md
+
+# Local scripts
+*.ps1

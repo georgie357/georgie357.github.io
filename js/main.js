@@ -27,11 +27,11 @@
 
 /* --- Active Nav Link --- */
 (function () {
-  const page = location.pathname.split('/').pop() || 'index.html';
+  const page = location.pathname.split('/').pop() || '';
+  const isHome = page === '' || page === 'index.html';
   document.querySelectorAll('.nav-links a').forEach(a => {
     const href = a.getAttribute('href');
-    if (href === page || (page === '' && href === 'index.html') ||
-        (page === 'index.html' && href === 'index.html')) {
+    if ((isHome && (href === '/' || href === 'index.html')) || href === page) {
       a.classList.add('active');
     }
   });
@@ -67,35 +67,6 @@
       ? '0 4px 30px rgba(0,0,0,0.5)'
       : 'none';
   }, { passive: true });
-})();
-
-/* --- Mailing List Form Handler --- */
-(function () {
-  const forms = document.querySelectorAll('.mailing-form, .mailing-inline, .mailing-signup-form');
-  forms.forEach(form => {
-    form.addEventListener('submit', function (e) {
-      // If action URL is a placeholder, prevent default and show message
-      const action = form.getAttribute('action') || '';
-      if (!action || action.includes('YOUR_MAILCHIMP') || action === '#') {
-        e.preventDefault();
-        const input = form.querySelector('input[type="email"]');
-        const btn   = form.querySelector('button[type="submit"]');
-        if (input && input.value) {
-          if (btn) {
-            const orig = btn.textContent;
-            btn.textContent = 'Thank you!';
-            btn.disabled = true;
-            input.value = '';
-            setTimeout(() => {
-              btn.textContent = orig;
-              btn.disabled = false;
-            }, 3000);
-          }
-        }
-      }
-      // Otherwise let the form submit to the real Mailchimp/ConvertKit URL
-    });
-  });
 })();
 
 /* --- Amazon Click Tracking --- */
