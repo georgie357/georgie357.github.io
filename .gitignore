@@ -29,3 +29,6 @@ credentials.json
 service-account.json
 *.pem
 *.key
+
+# Draft/scheduled posts — keep local only, publish to root when ready
+scheduled-posts/
