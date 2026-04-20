@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /thanks.html
+Disallow: /thank-you.html
 
 Sitemap: https://georgealexandervela.com/sitemap.xml

@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://georgealexandervela.com/blog-trojan-horse.html</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -122,7 +122,19 @@
   </url>
   <url>
     <loc>https://georgealexandervela.com/blog-who-was-penthesilea.html</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://georgealexandervela.com/blog-persephone.html</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://georgealexandervela.com/blog-prometheus.html</loc>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -134,7 +146,7 @@
   </url>
   <url>
     <loc>https://georgealexandervela.com/contact.html</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
