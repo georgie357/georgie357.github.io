@@ -39,35 +39,54 @@
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Schema.org JSON-LD -->
+  <!-- Schema.org JSON-LD: Book with Product/Offer for rich results -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Book",
-    "@id": "https://georgealexandervela.com/amazons-end.html",
-    "name": "The Amazon's End: The Tragedy of Penthesilea",
-    "author": {
-      "@type": "Person",
-      "name": "George Alexander Vela",
-      "url": "https://georgealexandervela.com"
-    },
-    "isbn": "B0GV1VDJNV",
+  "@context": "https://schema.org",
+  "@type": [
+    "Book",
+    "Product"
+  ],
+  "@id": "https://georgealexandervela.com/amazons-end.html",
+  "name": "The Amazon's End: The Tragedy of Penthesilea",
+  "author": {
+    "@type": "Person",
+    "name": "George Alexander Vela",
+    "url": "https://georgealexandervela.com"
+  },
+  "isbn": "B0GV1VDJNV",
+  "url": "https://www.amazon.com/dp/B0GV1VDJNV",
+  "image": "https://georgealexandervela.com/img/amazons-end.jpg",
+  "description": "Book Four of the Myths of the Ancient World series. Achilles at the end of the war \u2014 after Patroclus, after Hector, in the moment before his own death \u2014 and the Amazon queen who came to Troy to face him.",
+  "genre": [
+    "Greek mythology",
+    "Literary fiction",
+    "Greek mythology retelling"
+  ],
+  "isPartOf": {
+    "@type": "BookSeries",
+    "@id": "https://georgealexandervela.com/#series",
+    "name": "Myths of the Ancient World",
+    "url": "https://georgealexandervela.com/books.html"
+  },
+  "position": 4,
+  "datePublished": "2024-01-08",
+  "publisher": {
+    "@type": "Organization",
+    "name": "George Alexander Vela"
+  },
+  "offers": {
+    "@type": "Offer",
     "url": "https://www.amazon.com/dp/B0GV1VDJNV",
-    "image": "https://georgealexandervela.com/img/amazons-end.jpg",
-    "description": "Penthesilea, War-Queen of the Amazons, brings twelve warriors to Troy to face Achilles. A Penthesilea Achilles novel in the Greek mythology retelling tradition. Book Four of Myths of the Ancient World.",
-    "genre": ["Greek mythology", "Literary fiction", "Penthesilea Achilles novel", "Greek mythology retelling"],
-    "isPartOf": {
-      "@type": "BookSeries",
-      "@id": "https://georgealexandervela.com/#series",
-      "name": "Myths of the Ancient World",
-      "url": "https://georgealexandervela.com/books.html"
-    },
-    "position": 4,
-    "offers": {
-      "@type": "Offer",
-      "url": "https://www.amazon.com/dp/B0GV1VDJNV",
-      "availability": "https://schema.org/InStock"
+    "price": "4.99",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "Amazon"
     }
   }
+}
   </script>
 
   <!-- Breadcrumb Schema -->

@@ -39,35 +39,54 @@
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Schema.org JSON-LD -->
+  <!-- Schema.org JSON-LD: Book with Product/Offer for rich results -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Book",
-    "@id": "https://georgealexandervela.com/hercules.html",
-    "name": "Hercules and the Cradle of Thunder",
-    "author": {
-      "@type": "Person",
-      "name": "George Alexander Vela",
-      "url": "https://georgealexandervela.com"
-    },
-    "isbn": "B0GTC4ZMWC",
+  "@context": "https://schema.org",
+  "@type": [
+    "Book",
+    "Product"
+  ],
+  "@id": "https://georgealexandervela.com/hercules.html",
+  "name": "Hercules and the Cradle of Thunder",
+  "author": {
+    "@type": "Person",
+    "name": "George Alexander Vela",
+    "url": "https://georgealexandervela.com"
+  },
+  "isbn": "B0GTC4ZMWC",
+  "url": "https://www.amazon.com/dp/B0GTC4ZMWC",
+  "image": "https://georgealexandervela.com/img/hercules.jpg",
+  "description": "Hercules literary fiction retelling the myth of Heracles from Thebes to the pyre on Mount Oeta \u2014 the twelve labours, and what they cost the man inside the legend. Book Two of the Myths of the Ancient World series.",
+  "genre": [
+    "Greek mythology",
+    "Literary fiction",
+    "Greek mythology retelling"
+  ],
+  "isPartOf": {
+    "@type": "BookSeries",
+    "@id": "https://georgealexandervela.com/#series",
+    "name": "Myths of the Ancient World",
+    "url": "https://georgealexandervela.com/books.html"
+  },
+  "position": 2,
+  "datePublished": "2023-03-20",
+  "publisher": {
+    "@type": "Organization",
+    "name": "George Alexander Vela"
+  },
+  "offers": {
+    "@type": "Offer",
     "url": "https://www.amazon.com/dp/B0GTC4ZMWC",
-    "image": "https://georgealexandervela.com/img/hercules.jpg",
-    "description": "Hercules literary fiction retelling the myth of Heracles from Thebes to the pyre on Mount Oeta — the twelve labours, and what they cost the man inside the legend. Book Two of the Myths of the Ancient World series.",
-    "genre": ["Greek mythology", "Literary fiction", "Hercules literary fiction", "Greek mythology retelling"],
-    "isPartOf": {
-      "@type": "BookSeries",
-      "@id": "https://georgealexandervela.com/#series",
-      "name": "Myths of the Ancient World",
-      "url": "https://georgealexandervela.com/books.html"
-    },
-    "position": 2,
-    "offers": {
-      "@type": "Offer",
-      "url": "https://www.amazon.com/dp/B0GTC4ZMWC",
-      "availability": "https://schema.org/InStock"
+    "price": "4.99",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "Amazon"
     }
   }
+}
   </script>
 
   <!-- Breadcrumb Schema -->

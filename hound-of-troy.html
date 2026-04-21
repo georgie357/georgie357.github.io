@@ -39,35 +39,54 @@
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Schema.org JSON-LD -->
+  <!-- Schema.org JSON-LD: Book with Product/Offer for rich results -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Book",
-    "@id": "https://georgealexandervela.com/hound-of-troy.html",
-    "name": "The Hound of Troy: The Vengeance of Hecuba",
-    "author": {
-      "@type": "Person",
-      "name": "George Alexander Vela",
-      "url": "https://georgealexandervela.com"
-    },
-    "isbn": "B0GTT3H55D",
+  "@context": "https://schema.org",
+  "@type": [
+    "Book",
+    "Product"
+  ],
+  "@id": "https://georgealexandervela.com/hound-of-troy.html",
+  "name": "The Hound of Troy: The Vengeance of Hecuba",
+  "author": {
+    "@type": "Person",
+    "name": "George Alexander Vela",
+    "url": "https://georgealexandervela.com"
+  },
+  "isbn": "B0GTT3H55D",
+  "url": "https://www.amazon.com/dp/B0GTT3H55D",
+  "image": "https://georgealexandervela.com/img/hound-of-troy.jpg",
+  "description": "The Hound of Troy: A literary fiction retelling of the Trojan War from Hecuba's perspective. Book Three of the Myths of the Ancient World series.",
+  "genre": [
+    "Greek mythology",
+    "Literary fiction",
+    "Greek mythology retelling"
+  ],
+  "isPartOf": {
+    "@type": "BookSeries",
+    "@id": "https://georgealexandervela.com/#series",
+    "name": "Myths of the Ancient World",
+    "url": "https://georgealexandervela.com/books.html"
+  },
+  "position": 3,
+  "datePublished": "2023-06-10",
+  "publisher": {
+    "@type": "Organization",
+    "name": "George Alexander Vela"
+  },
+  "offers": {
+    "@type": "Offer",
     "url": "https://www.amazon.com/dp/B0GTT3H55D",
-    "image": "https://georgealexandervela.com/img/hound-of-troy.jpg",
-    "description": "Hecuba, Queen of Troy, loses everything in a single night — a Hecuba Troy novel of vengeance, grief, and metamorphosis drawing on Euripides. Book Three of the Myths of the Ancient World series.",
-    "genre": ["Greek mythology", "Literary fiction", "Hecuba Troy novel", "Greek mythology retelling"],
-    "isPartOf": {
-      "@type": "BookSeries",
-      "@id": "https://georgealexandervela.com/#series",
-      "name": "Myths of the Ancient World",
-      "url": "https://georgealexandervela.com/books.html"
-    },
-    "position": 3,
-    "offers": {
-      "@type": "Offer",
-      "url": "https://www.amazon.com/dp/B0GTT3H55D",
-      "availability": "https://schema.org/InStock"
+    "price": "4.99",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "Amazon"
     }
   }
+}
   </script>
 
   <!-- Breadcrumb Schema -->
