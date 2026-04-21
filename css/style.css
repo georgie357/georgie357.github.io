@@ -1357,6 +1357,35 @@ a:hover { color: var(--gold-light); }
 }
 .post-back:hover { color: var(--gold-light); }
 
+/* Video Section */
+.video-section {
+  background: var(--bg-secondary);
+  padding: 5rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.video-inner {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.video-inner .section-title {
+  margin-bottom: 1.5rem;
+}
+
+.video-intro {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  line-height: 1.75;
+}
+
+.video-inner .btn {
+  font-size: 1rem;
+  padding: 0.9rem 2.2rem;
+}
+
 @media (max-width: 640px) {
   .post-body { padding: 3rem 0; }
   .post-header { padding: 8rem 0 3rem; }
