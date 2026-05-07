@@ -2,17 +2,9 @@
 <html lang="en">
 <head>
   <!-- Canonical redirect: /books -> /books.html -->
-  <script>if(window.location.pathname==='/books')window.location.replace('/books.html');</script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCDJHG9Q5Y"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-ZCDJHG9Q5Y');
-  </script>
+  
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; frame-src https://giscus.app https://978199fb.sibforms.com; connect-src 'self' https://formspree.io https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; frame-src https://giscus.app https://978199fb.sibforms.com; connect-src 'self' https://formspree.io https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Books — George Alexander Vela | Greek Mythology Literary Fiction Series</title>
   <meta name="description" content="The complete Myths of the Ancient World series — five Greek mythology retellings by George Alexander Vela. Bellerophon, Hercules, Hecuba, Penthesilea, and Cadmus. For fans of Madeline Miller.">
@@ -37,8 +29,9 @@
   <meta name="twitter:title" content="Books — Myths of the Ancient World by George Alexander Vela">
   <meta name="twitter:description" content="Five Greek mythology retellings — Bellerophon, Hercules, Hecuba, Penthesilea, and The Dragon's Teeth. For fans of Madeline Miller.">
   <meta name="twitter:image" content="https://georgealexandervela.com/img/dragons-teeth.png">
-
-  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Cormorant+SC:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -165,7 +158,7 @@
         <div class="book-badge">Latest</div>
         <div class="book-cover">
           <a href="https://www.amazon.com/dp/B0D7K5J71W" target="_blank" rel="noopener" aria-label="Buy The Dragon's Teeth on Amazon">
-            <img src="img/dragons-teeth.png"
+            <img src="img/dragons-teeth.webp"
                  alt="The Dragon's Teeth: A Tale of Cadmus and the Founding of Thebes — Greek mythology literary fiction by George Alexander Vela"
                  width="500" height="750"
                  loading="eager">
@@ -204,7 +197,7 @@
       <div class="book-cover-wrap">
         <div class="book-cover">
           <a href="https://www.amazon.com/dp/B0GV1VDJNV" target="_blank" rel="noopener" aria-label="Buy The Amazon's End on Amazon">
-            <img src="img/amazons-end.jpg"
+            <img src="img/amazons-end.webp"
                  alt="The Amazon's End: The Tragedy of Penthesilea — Greek mythology literary fiction by George Alexander Vela"
                  width="500" height="750"
                  loading="lazy">
@@ -251,7 +244,7 @@
       <div class="book-cover-wrap">
         <div class="book-cover">
           <a href="https://www.amazon.com/dp/B0GTT3H55D" target="_blank" rel="noopener" aria-label="Buy The Hound of Troy on Amazon">
-            <img src="img/hound-of-troy.jpg"
+            <img src="img/hound-of-troy.webp"
                  alt="The Hound of Troy: The Vengeance of Hecuba — Greek mythology literary fiction by George Alexander Vela"
                  width="500" height="750"
                  loading="lazy">
@@ -294,7 +287,7 @@
       <div class="book-cover-wrap">
         <div class="book-cover">
           <a href="https://www.amazon.com/dp/B0GTC4ZMWC" target="_blank" rel="noopener" aria-label="Buy Hercules and the Cradle of Thunder on Amazon">
-            <img src="img/hercules.jpg"
+            <img src="img/hercules.webp"
                  alt="Hercules and the Cradle of Thunder — Greek mythology literary fiction by George Alexander Vela"
                  width="500" height="750"
                  loading="lazy">
@@ -443,6 +436,7 @@
 </footer>
 
 <script src="js/main.js" defer></script>
-<script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCDJHG9Q5Y"></script>
+  <script src="js/site.js" defer></script>
 </body>
 </html>
