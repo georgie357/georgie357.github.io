@@ -14,11 +14,11 @@
 
   --text-primary:   #ede5d8;
   --text-secondary: #a09180;
-  --text-muted:     #5a5048;
+  --text-muted:     #8a7d6f;
 
   --gold:           #c9a84c;
   --gold-light:     #e2c278;
-  --gold-dark:      #8b7030;
+  --gold-dark:      #a5843c;
   --gold-faint:     rgba(201, 168, 76, 0.08);
 
   --crimson:        #7a2c2c;
@@ -1670,3 +1670,7 @@ a:hover { color: var(--gold-light); }
     min-width: 0 !important;
   }
 }
+
+/* --- Skip to main content (a11y) --- */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:2000;background:var(--gold);color:var(--bg-primary);padding:.7rem 1.2rem;font-family:var(--ff-small-caps);letter-spacing:.1em;text-transform:uppercase;font-size:.8rem;}
+.skip-link:focus{left:0;}
