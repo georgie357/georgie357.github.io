@@ -111,3 +111,31 @@
     }
   });
 })();
+
+/* --- Share bar (blog articles only; CSP-safe, no external SDKs) --- */
+(function () {
+  var article = document.querySelector('main article, article.post, .post-body');
+  if (!article) return;                         // only on article pages
+  if (document.querySelector('.share-bar')) return;
+  var url = location.href.split('#')[0];
+  var title = document.title.replace(/\s*[—|].*$/, '').trim();
+  var bar = document.createElement('div');
+  bar.className = 'share-bar';
+  bar.setAttribute('aria-label', 'Share this essay');
+  bar.innerHTML =
+    '<span class="share-label">Share</span>' +
+    '<a class="share-link" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=' +
+      encodeURIComponent(title) + '&url=' + encodeURIComponent(url) + '">X / Twitter</a>' +
+    '<a class="share-link" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=' +
+      encodeURIComponent(url) + '">Facebook</a>' +
+    '<button type="button" class="share-link share-copy">Copy link</button>';
+  article.appendChild(bar);
+  var copyBtn = bar.querySelector('.share-copy');
+  copyBtn.addEventListener('click', function () {
+    navigator.clipboard && navigator.clipboard.writeText(url).then(function () {
+      var t = copyBtn.textContent; copyBtn.textContent = 'Copied ✓';
+      setTimeout(function () { copyBtn.textContent = t; }, 2000);
+    });
+    if (typeof gtag === 'function') gtag('event', 'share', { method: 'copy_link', page_path: location.pathname });
+  });
+})();
