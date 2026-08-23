@@ -1,19 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-ZCDJHG9Q5Y');
-
-    // Fire lead conversion event
-    gtag('event', 'generate_lead', {
-      'event_category': 'email_signup',
-      'event_label': 'mailing_list'
-    });
-  </script>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; frame-src 'self' https://giscus.app https://978199fb.sibforms.com; connect-src 'self' https://formspree.io https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>You're In — George Alexander Vela</title>
   <meta name="description" content="Thank you for subscribing. New essays and mythology notes are on their way.">
@@ -39,6 +28,7 @@
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="books.html">Books</a></li>
+      <li><a href="free.html">Start Reading</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
@@ -60,19 +50,8 @@
   </div>
 </main>
 
-<script>
-  // Nav toggle for mobile
-  const toggle = document.querySelector('.nav-toggle');
-  const links  = document.querySelector('.nav-links');
-  if (toggle && links) {
-    toggle.addEventListener('click', () => {
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!expanded));
-      links.classList.toggle('open');
-    });
-  }
-</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCDJHG9Q5Y"></script>
+  <script src="js/main.js" defer></script>
   <script src="js/site.js" defer></script>
 </body>
 </html>
