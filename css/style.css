@@ -1762,3 +1762,74 @@ a:hover { color: var(--gold-light); }
   .post-cta-card { flex-direction: column; align-items: flex-start; gap: 1rem; }
   .post-cta-card__coverlink { flex-basis: auto; width: 108px; }
 }
+
+/* ============================================================
+   ABOUT THESE BOOKS — books.html intro panel
+   ============================================================ */
+.about-books {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--gold);
+  padding: 2.5rem 3rem;
+  margin: 0 0 3.5rem;
+}
+.about-books p {
+  font-size: 0.98rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  margin: 0 0 1.1rem;
+}
+.about-books p:last-child { margin-bottom: 0; }
+.about-books strong {
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+/* ============================================================
+   ARC GROUP HEADINGS — books.html
+   ============================================================ */
+.arc-heading {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 0 0 1rem;
+  padding-top: 3rem;
+}
+.arc-heading:first-of-type { padding-top: 0; }
+.arc-heading h2 {
+  font-family: var(--ff-display);
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  white-space: nowrap;
+  margin: 0;
+}
+.arc-heading .arc-rule {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--border-light);
+}
+.arc-heading .arc-count {
+  font-family: var(--ff-small-caps);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   EN ESPAÑOL SECTION — books.html
+   ============================================================ */
+.lang-section {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 5rem 0;
+}
+.lang-section .books-grid { padding: 2.5rem 0 0; }
+
+.book-badge.badge-new {
+  background: var(--text-primary);
+  color: var(--bg-secondary);
+}
