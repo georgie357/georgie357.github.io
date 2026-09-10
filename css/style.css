@@ -1668,6 +1668,10 @@ a:hover { color: var(--gold-light); }
   .book-entry.featured { padding: 2rem; }
   .book-cover-wrap { max-width: 220px; margin: 0 auto; }
 
+  .about-books { padding: 1.75rem 1.25rem; }
+  .arc-heading { flex-wrap: wrap; row-gap: 0.4rem; }
+  .arc-heading .arc-rule { flex-basis: 100%; order: 3; }
+
   .mailing-form,
   .mailing-inline { flex-direction: column; }
   .mailing-form input[type="email"],
