@@ -41,6 +41,11 @@
     }
   } catch (_) {}
 
+  // 2b. Automated browsers (headless Chrome, Selenium, Puppeteer scrapers) announce themselves
+  //     with navigator.webdriver. They are not readers; keep them out of the numbers.
+  //     Added 17 Sep 2026.
+  if (navigator.webdriver) { window['ga-disable-G-ZCDJHG9Q5Y'] = true; }
+
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = gtag;
@@ -67,6 +72,32 @@
         sessionStorage.setItem(leadKey, '1');
         gtag('event', 'generate_lead', { method: leadMethod });
       }
+    }
+  } catch (_) {}
+
+  // 2d. Scroll depth on essays. GA4's built-in scroll event fires only at 90% of the page,
+  //     and an essay's page is much longer than the essay (CTA, comments, footer), so almost
+  //     no reader ever reached it. This sends the same `scroll` event at 25/50/75% too, using
+  //     GA4's built-in percent_scrolled parameter, once each per page load. Added 17 Sep 2026.
+  try {
+    if (/^\/blog-/.test(window.location.pathname)) {
+      var marks = [25, 50, 75], ticking = false;
+      var onScroll = function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () {
+          ticking = false;
+          var doc = document.documentElement;
+          var max = doc.scrollHeight - window.innerHeight;
+          if (max <= 0) return;
+          var pct = (window.scrollY / max) * 100;
+          while (marks.length && pct >= marks[0]) {
+            gtag('event', 'scroll', { percent_scrolled: marks.shift() });
+          }
+          if (!marks.length) window.removeEventListener('scroll', onScroll);
+        });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
     }
   } catch (_) {}
 
