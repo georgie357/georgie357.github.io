@@ -70,7 +70,17 @@
       var leadKey = 'ga_lead_fired_' + leadMethod;
       if (!sessionStorage.getItem(leadKey)) {
         sessionStorage.setItem(leadKey, '1');
-        gtag('event', 'generate_lead', { method: leadMethod });
+        var lead = { method: leadMethod };
+        if (leadMethod === 'contact_form') {
+          // set by js/main.js on the contact form's submit; tells GA what kind of enquiry it was
+          var subj = sessionStorage.getItem('ga_contact_subject');
+          var book = sessionStorage.getItem('ga_contact_book');
+          var found = sessionStorage.getItem('ga_contact_found');
+          if (subj) lead.enquiry_type = subj;
+          if (book) lead.book = book;
+          if (found) lead.found_via = found;
+        }
+        gtag('event', 'generate_lead', lead);
       }
     }
   } catch (_) {}

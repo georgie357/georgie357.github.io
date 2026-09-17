@@ -93,6 +93,14 @@
   if (!form) return;
 
   form.addEventListener('submit', function (e) {
+    // Remember what kind of enquiry this was so site.js can attach it to the
+    // generate_lead event on thanks.html (Formspree's redirect can't carry it).
+    try {
+      ['subject', 'book', 'found'].forEach(function (k) {
+        const el = form.querySelector('[name="' + k + '"]');
+        if (el && el.value) sessionStorage.setItem('ga_contact_' + k, el.value);
+      });
+    } catch (_) {}
     const action = form.getAttribute('action') || '';
     if (!action || action === '#' || action.includes('YOUR_FORM')) {
       e.preventDefault();
